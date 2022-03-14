@@ -8,5 +8,7 @@
             "email": "dzenana.mededovic@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "mikecao/flight": "^2.0"
+    }
 }
