@@ -1,0 +1,12 @@
+{
+    "name": "ibu/events-web-app",
+    "description": "A system used to get information on events, as well as making reservations for them online",
+    "license": "Apache2",
+    "authors": [
+        {
+            "name": "dzenimed",
+            "email": "dzenana.mededovic@gmail.com"
+        }
+    ],
+    "require": {}
+}
