@@ -5,7 +5,7 @@ require_once dirname(__FILE__).'/vendor/autoload.php';
 
 FLight::route('/', function(){
 
-  echo 'First route.';
+  echo 'This is my first route.';
 });
 
 Flight::start();
