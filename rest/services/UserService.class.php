@@ -43,9 +43,12 @@ class UserService extends BaseService{
     // Username is good.
       $user = parent::add([
         "username" => $user["username"],
-        "password" => password_hash($user["password"], PASSWORD_DEFAULT),
+        "name" => $user["name"],
+        "surname" => $user["surname"],
         "email" => $user["email"],
-        "phone" => $user["phone"],
+        "password" => password_hash($user["password"], PASSWORD_DEFAULT),
+        "role" => "user",
+        "registered_at" => date(Config::DATE_FORMAT),
         "status" => "PENDING",
         "token" => md5(random_bytes(16))
       ]);
@@ -55,8 +58,8 @@ class UserService extends BaseService{
         $this->dao->rollBack();
         if(str_contains($e->getMessage(), 'user.username_UNIQUE')){
           throw new Exception("Please choose another username.", 400, $e);
-        }else if(str_contains($e->getMessage(), 'user.phone_UNIQUE')){
-          throw new Exception("Please provide a valid phone number.", 400, $e);
+        }else if(str_contains($e->getMessage(), 'user.email_UNIQUE')){
+          throw new Exception("Please provide a valid email address.", 400, $e);
         }else{
           throw $e;
         }
