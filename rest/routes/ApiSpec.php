@@ -10,6 +10,7 @@
 *     url="http://localhost/Events-Web-App/rest",
 *     description="Development Environment"
 *     )
-* )
+* ),
+ * @OA\SecurityScheme(securityScheme="ApiKeyAuth", type="apiKey", in="header", name="Authorization" )
 */
 ?>
