@@ -3,18 +3,18 @@
 require_once dirname(__FILE__).'/BaseService.class.php';
 require_once dirname(__FILE__).'/../dao/UserDao.class.php';
 require_once dirname(__FILE__).'/../../vendor/autoload.php';
-require_once dirname(__FILE__).'/../clients/SMTPclients.class.php';
+//require_once dirname(__FILE__).'/../clients/SMTPclients.class.php';
 
 use Firebase\JWT\JWT;
 
 class UserService extends BaseService
 {
-    private $smtpClient;
+  //  private $smtpClient;
 
     public function __construct()
     {
         $this->dao = new UserDao();
-        $this->smtpClient = new SMTPClient();
+    //    $this->smtpClient = new SMTPClient();
     }
 
     public function get_user($search, $offset, $limit, $order)
@@ -65,7 +65,7 @@ class UserService extends BaseService
                 throw $e;
             }
         }
-        $this->smtpClient->send_register_user_token($user);
+    //    $this->smtpClient->send_register_user_token($user);
         return $user;
     }
 
@@ -105,7 +105,7 @@ class UserService extends BaseService
         $db_user = $this->update($db_user['id'], ['token' => md5(random_bytes(16))]);
 
         // send email
-        $this->smtpClient->send_user_recovery_token($db_user);
+      //  $this->smtpClient->send_user_recovery_token($db_user);
     }
 
     public function reset($user)
