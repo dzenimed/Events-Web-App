@@ -51,6 +51,12 @@ Flight::route('GET /docs.json', function(){
   echo $openapi->toJson();
 });
 
+/* utility function for generating JWT token */
+Flight::map('jwt', function ($user) {
+    $jwt = \Firebase\JWT\JWT::encode(["exp" => (time() + Config::JWT_TOKEN_TIME), "id" => $user["id"], "r" => $user["role"]], Config::JWT_SECRET, 'HS256');
+    return ["token" => $jwt];
+});
+
 FLight::route('/try', function(){
    echo 'This is my route.';
  });
