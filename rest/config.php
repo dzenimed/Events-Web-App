@@ -6,6 +6,26 @@ class Config {
   const DB_USERNAME = "events";
   const DB_PASSWORD = "events123";
   const DB_SCHEME = "events_db";
+
+  public static function JWT_SECRET()
+  {
+      return Config::get_env("JWT_SECRET", "y4KvQcZVqn3F7uxQvcFk");
+  }
+
+  // environment servers setup
+  public static function ENVIRONMENT_SERVER()
+  {
+      return Config::get_env("ENVIRONMENT_SERVER", "localhost/Events-Web-App/");
+  }
+  public static function PROTOCOL()
+  {
+      return strtolower(substr($_SERVER["SERVER_PROTOCOL"], 0, strpos($_SERVER["SERVER_PROTOCOL"], '/'))).'://';
+  }
+
+  public static function get_env($name, $default)
+  {
+      return isset($_ENV[$name]) && trim($_ENV[$name]) != '' ? $_ENV[$name] : $default;
+  }
 }
 
 ?>
