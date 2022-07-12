@@ -1,6 +1,6 @@
 <?php
 /**
-*  @OA\Post(path="/add/eventType", description = "Add event type to system.", tags={"eventType"},
+*  @OA\Post(path="/add/eventType", description = "Add event type to system.", tags={"eventType"}, security={{"ApiKeyAuth":{}}},
 *   @OA\RequestBody(description="Basic event type info", required=true,
 *     @OA\MediaType(mediaType="application/json",
 *    		@OA\Schema(

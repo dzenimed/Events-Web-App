@@ -1,6 +1,6 @@
 <?php
 /**
- * @OA\Get(path="/events", tags={"event"}, security={{"ApiKeyAuth":{}}},
+ * @OA\Get(path="/events", tags={"event"},
  *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="offset", description="Offset for pagination"),
  *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="limit", description="Limit for pagination"),
  *     @OA\Parameter(@OA\Schema(type="string"), in="query", name="search", description="Search string for events. Case insensitive search."),
@@ -18,7 +18,7 @@ Flight::route('GET /events', function () {
 });
 
 /**
- * @OA\Get(path="/event/{id}", tags={"event"}, security={{"ApiKeyAuth":{}}},
+ * @OA\Get(path="/event/{id}", tags={"event"},
  *     @OA\Parameter(@OA\Schema(type="integer"), in="path", name="id", description="Id of event"),
  *     @OA\Response(response="200", description="Fetch individual event")
  * )
@@ -28,7 +28,7 @@ Flight::route('GET /event/@id', function ($id) {
 });
 
 /**
- * @OA\Get(path="/event/{city}", tags={"event"}, security={{"ApiKeyAuth":{}}},
+ * @OA\Get(path="/event/{city}", tags={"event"},
  *     @OA\Parameter(@OA\Schema(type="string"), in="path", name="city", description="City where event is held"),
  *     @OA\Response(response="200", description="Fetch events by city")
  * )
@@ -38,7 +38,7 @@ Flight::route('GET /event/@city', function ($city) {
 });
 
 /**
-*  @OA\Post(path="/admin/add/event", description = "Add event to system.", tags={"x-admin", "event"},
+*  @OA\Post(path="/admin/add/event", description = "Add event to system.", tags={"x-admin", "event"}, security={{"ApiKeyAuth":{}}},
 *   @OA\RequestBody(description="Basic event info", required=true,
 *     @OA\MediaType(mediaType="application/json",
 *    		@OA\Schema(

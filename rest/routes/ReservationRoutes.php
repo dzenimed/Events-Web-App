@@ -20,7 +20,7 @@ Flight::route('GET /user/reservations', function () {
 });
 
 /**
-*  @OA\Post(path="/user/add/reservation/{event_id}", description = "Add reservation to system.", tags={"reservation"},
+*  @OA\Post(path="/user/add/reservation/{event_id}", description = "Add reservation to system.", tags={"reservation"}, security={{"ApiKeyAuth":{}}},
 *   @OA\RequestBody(description="Basic reservation info", required=true,
 *     @OA\MediaType(mediaType="application/json",
 *    		@OA\Schema(
@@ -37,7 +37,7 @@ Flight::route('POST /user/add/reservation/@event_id', function ($event_id) {
 });
 
 /**
-*  @OA\Put(path="/user/delete/reservation/{id}", description = "Add event type to system.", tags={"reservation"},
+*  @OA\Put(path="/user/delete/reservation/{id}", description = "Add event type to system.", tags={"reservation"}, security={{"ApiKeyAuth":{}}},
 *   @OA\RequestBody(description="Remove reservation", required=true,
 *     @OA\MediaType(mediaType="application/json",
 *    		@OA\Schema(
