@@ -5,7 +5,7 @@
  *     @OA\Parameter(@OA\Schema(type="integer"), in="query", name="limit", description="Limit for pagination"),
  *     @OA\Parameter(@OA\Schema(type="string"), in="query", name="search", description="Search string for events. Case insensitive search."),
  *     @OA\Parameter(@OA\Schema(type="string"), in="query", name="order", description="Sorting for return elements. -column_name ascending order by column_name or +column_name descending order by column_name"),
- *     @OA\Response(response="200", description="List users from database")
+ *     @OA\Response(response="200", description="List events from database")
  * )
  */
 Flight::route('GET /events', function () {
