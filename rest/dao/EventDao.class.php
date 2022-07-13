@@ -9,6 +9,20 @@ class EventDao extends BaseDao
         parent::__construct("event");
     }
 
+    public function get_events_by_name($search, $offset, $limit, $order= '-id'){
+      list($order_column, $order_direction) = self::parse_order($order);
+      $params = [];
+      $query = "SELECT * FROM event
+                WHERE 1 = 1 ";
+      if (isset($search)){
+        $query .= "AND ( LOWER(name) LIKE CONCAT('%', :search, '%') OR LOWER(description) LIKE CONCAT('%', :search, '%'))";
+        $params['search'] = strtolower($search);
+      }
+
+        $query .="ORDER BY ${order_column} ${order_direction} ";
+        $query .="LIMIT ${limit} OFFSET ${offset}";
+        return $this->query($query, $params);
+    }
     public function get_event($search, $offset, $limit, $order= '-id')
     {
         list($order_column, $order_direction) = self::parse_order($order);

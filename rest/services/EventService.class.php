@@ -15,6 +15,15 @@ class EventService extends BaseService
         $this->eventTypeDao = new EventTypeDao();
     }
 
+    public function get_events_by_name($search, $offset, $limit, $order){
+       if($search){
+           return $this->dao->get_events_by_name($search, $offset, $limit, $order);
+       }
+       else{
+         return $this->dao->get_all($offset, $limit, $order);
+       }
+     }
+
     public function get_events($search, $offset, $limit, $order)
     {
         if ($search) {
