@@ -7,10 +7,10 @@ class Config {
   // const DB_PASSWORD = "events123";
   // const DB_SCHEME = "events_db";
 
-  public const DB_HOST = "eu-cdbr-west-02.cleardb.net";
-  public const DB_USERNAME = "b80b15d1d7ad17";
-  public const DB_PASSWORD = "4b91e993";
-  public const DB_SCHEME = "heroku_df1469867643cb1";
+  const DB_HOST = "eu-cdbr-west-02.cleardb.net";
+  const DB_USERNAME = "b80b15d1d7ad17";
+  const DB_PASSWORD = "4b91e993";
+  const DB_SCHEME = "heroku_df1469867643cb1";
 
   public static function JWT_SECRET()
   {

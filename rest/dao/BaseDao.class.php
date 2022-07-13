@@ -1,6 +1,7 @@
 <?php
 
 require_once dirname(__FILE__)."/../config.php";
+require_once dirname(__FILE__) . "/../Database.class.php";
 
 /*
 * The main class for interaction with database
