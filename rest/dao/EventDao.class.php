@@ -17,6 +17,8 @@ class EventDao extends BaseDao
       if (isset($search)){
         $query .= "AND ( LOWER(name) LIKE CONCAT('%', :search, '%') OR LOWER(description) LIKE CONCAT('%', :search, '%'))";
         $params['search'] = strtolower($search);
+      }else{
+        $search = '';
       }
 
         $query .="ORDER BY ${order_column} ${order_direction} ";
