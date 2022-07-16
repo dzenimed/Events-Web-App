@@ -95,7 +95,36 @@ body {
 
 p {
   font-size: 14px;
-  color: #CDCDCF !important;
+  color: #282829 !important;
+}
+
+.modal-container{
+  min-width: 100%;
+}
+
+#name{
+  border: none;
+  width: 100%;
+}
+
+#description{
+  border: none;
+  width: 100%;
+}
+
+#location{
+  border: none;
+  width: 100%;
+}
+
+#address{
+  border: none;
+  width: 100%;
+}
+
+#date{
+  border: none;
+  width: 100%;
 }
 
 .btn {
