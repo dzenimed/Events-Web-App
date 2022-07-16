@@ -10,7 +10,9 @@
   <title>Vertex Events</title>
   <link rel="stylesheet" href="styles.css">
   <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="./styling.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 
 </head>
 
@@ -32,14 +34,17 @@
           <li class="nav-item">
             <a class="nav-link" href="login.html">Login</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" onclick="doLogout()" href="index.html">Logout</a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link"  href="register.html">Register</a>
           </li>
         </ul>
       </div>
+      <form class="d-flex">
+         <button class="btn btn-outline-success" type="button" onclick="doLogout()">Logout</button>
+       </form>
     </div>
   </nav>
   <script src="js\jquery-3.6.0.min.js"></script>
@@ -125,7 +130,7 @@
             <div class="cardd">
             <div class="cardd-image"> <img src="Frame 1-11.png" alt="" srcset=""> </div>
             <div class="cardd-info">
-            <h3 class="eventt">` + data[i].name + `</h3>
+            <h3 class="eventt">` + data[i].name + `</h3><br>
             <p>📍 ` + data[i].city + `</p>
             <p>🗓️ ` + data[i].date_held + `</p>
             <p>
@@ -153,6 +158,7 @@
             $("#name").val(data.name);
             $("#description").val(data.description);
             $("#location").val(data.city);
+            $("#address").val(data.address);
             $("#date").val(data.date_held);
             $("#exampleModal").modal("show");
           });
@@ -162,93 +168,6 @@
           alert("Reservation created.");
         }
       </script>
-
-
-      <!-- <div class="cardd"> -->
-
-      <!-- <div class="cardd-image"> <img src="https://www.novilist.hr/wp-content/uploads/2021/06/Jala-Brat-i-Buba-Corelli.jpg" alt="" srcset=""> </div>
-            <div class="cardd-info">
-                <h3>Card 01</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quasi laudantium hic a omnis est. Dolorum debitis exercitationem, modi odio voluptate, aliquid eveniet autem assumenda ipsum temporibus unde, deserunt ea?</p>
-            </div>
-        </div>
-        <div class="cardd">
-            <div class="cardd-image"> <img src="https://static.jutarnji.hr/images/slike/2021/03/09/k_10393197_640.jpg" alt="" srcset=""> </div>
-            <div class="cardd-info">
-                <h3>Card 02</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quasi laudantium hic a omnis est. Dolorum debitis exercitationem, modi odio voluptate, aliquid eveniet autem assumenda ipsum temporibus unde, deserunt ea?</p>
-            </div>
-        </div>
-        <div class="cardd">
-            <div class="cardd-image"> <img src="https://cdns-images.dzcdn.net/images/artist/ba5e2b6a1dee1c51f6600ad9c248af3d/500x500.jpg" alt="" srcset=""> </div>
-            <div class="cardd-info">
-                <h3>Card 03</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quasi laudantium hic a omnis est. Dolorum debitis exercitationem, modi odio voluptate, aliquid eveniet autem assumenda ipsum temporibus unde, deserunt ea?</p>
-            </div>
-        </div>
-        <div class="cardd">
-            <div class="cardd-image"> <img src="https://yt3.ggpht.com/UjBmZHYrZo_8BNSLJ5m7wGIkdOby20gSHSk6HQVMUpuIHduUDzu7NM4mr8w7htCD0ekfb2WMUw=s900-c-k-c0x00ffffff-no-rj" alt="" srcset=""> </div>
-            <div class="cardd-info">
-                <h3>Card 04</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quasi laudantium hic a omnis est. Dolorum debitis exercitationem, modi odio voluptate, aliquid eveniet autem assumenda ipsum temporibus unde, deserunt ea?</p>
-            </div>
-        </div>
-        <div class="cardd">
-            <div class="cardd-image"> <img src="https://yt3.ggpht.com/sAIdDKWo-u6Rb0Y9eg3CewiGPYIIFZNbEjmgBkE4Aq4p5rBmFNEOOytKKUY9yAV73utB_fgr3jM=s900-c-k-c0x00ffffff-no-rj" alt="" srcset=""> </div>
-            <div class="cardd-info">
-                <h3>Card 05</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quasi laudantium hic a omnis est. Dolorum debitis exercitationem, modi odio voluptate, aliquid eveniet autem assumenda ipsum temporibus unde, deserunt ea?</p>
-            </div>
-        </div>
-        <div class="cardd">
-            <div class="cardd-image"> <img src="https://azra.ba/wp-content/uploads/2020/08/hanka-paldum.jpg" alt="" srcset=""> </div>
-            <div class="cardd-info">
-                <h3>Card 06</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quasi laudantium hic a omnis est. Dolorum debitis exercitationem, modi odio voluptate, aliquid eveniet autem assumenda ipsum temporibus unde, deserunt ea?</p>
-            </div>
-        </div>
-        <div class="cardd">
-            <div class="cardd-image"> <img src="https://www.journal.hr/wp-content/uploads/2021/01/Sara-Jo-pjeva%C4%8Dica.jpg" alt="" srcset=""> </div>
-            <div class="cardd-info">
-                <h3>Card 01</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quasi laudantium hic a omnis est. Dolorum debitis exercitationem, modi odio voluptate, aliquid eveniet autem assumenda ipsum temporibus unde, deserunt ea?</p>
-            </div>
-        </div>
-        <div class="cardd">
-            <div class="cardd-image"> <img src="https://static.jutarnji.hr/images/slike/2021/03/09/k_10393197_640.jpg" alt="" srcset=""> </div>
-            <div class="cardd-info">
-                <h3>Card 02</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quasi laudantium hic a omnis est. Dolorum debitis exercitationem, modi odio voluptate, aliquid eveniet autem assumenda ipsum temporibus unde, deserunt ea?</p>
-            </div>
-        </div>
-        <div class="cardd">
-            <div class="cardd-image"> <img src="https://cdns-images.dzcdn.net/images/artist/ba5e2b6a1dee1c51f6600ad9c248af3d/500x500.jpg" alt="" srcset=""> </div>
-            <div class="cardd-info">
-                <h3>Card 03</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quasi laudantium hic a omnis est. Dolorum debitis exercitationem, modi odio voluptate, aliquid eveniet autem assumenda ipsum temporibus unde, deserunt ea?</p>
-            </div>
-        </div>
-        <div class="cardd">
-            <div class="cardd-image"> <img src="https://azra.ba/wp-content/uploads/2021/08/jelena-rozga-novo-4-1.jpg" alt="" srcset=""> </div>
-            <div class="cardd-info">
-                <h3>Card 01</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quasi laudantium hic a omnis est. Dolorum debitis exercitationem, modi odio voluptate, aliquid eveniet autem assumenda ipsum temporibus unde, deserunt ea?</p>
-            </div>
-        </div>
-        <div class="cardd">
-            <div class="cardd-image"> <img src="https://static.jutarnji.hr/images/slike/2021/03/09/k_10393197_640.jpg" alt="" srcset=""> </div>
-            <div class="cardd-info">
-                <h3>Card 02</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quasi laudantium hic a omnis est. Dolorum debitis exercitationem, modi odio voluptate, aliquid eveniet autem assumenda ipsum temporibus unde, deserunt ea?</p>
-            </div>
-        </div>
-        <div class="cardd">
-            <div class="cardd-image"> <img src="https://i1.sndcdn.com/artworks-000781171168-8b0jgm-t500x500.jpg" alt="" srcset=""> </div>
-            <div class="cardd-info">
-                <h3>Card 03</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quasi laudantium hic a omnis est. Dolorum debitis exercitationem, modi odio voluptate, aliquid eveniet autem assumenda ipsum temporibus unde, deserunt ea?</p>
-            </div>
-        </div> -->
     </div>
 
     <div class="pagination">
@@ -339,18 +258,8 @@
 </script>
 
 
-
-
-
-
-
-
-
-
-
-
-
 </body>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -369,12 +278,13 @@
           }
         </script>
       </div>
-      <p>Name: <input id="name" type="text" /></p>
-      <p>Description: <input id="description" type="text" /></p>
-      <p>📍 Location: <input id="location" type="text" /></p>
-      <p>🗓️ Date: <input id="date" type="text" /></p>
+      <p><strong>Name: </strong><input id="name" type="text" disabled/></p>
+      <p><strong>Description: </strong><input id="description" type="text" disabled/></p>
+      <p><strong>📍 City: </strong><input id="location" type="text" disabled/></p>
+      <p><strong>📍 Address: </strong><input id="address" type="text" disabled/></p>
+      <p><strong>🗓️ Date: </strong><input id="date" type="text" disabled/></p>
       <div class="modal-footer">
-        <button type="button" onclick="indexPage()" class="btn btn-secondary" href="index.html" data-dismiss="modal">Close</button>
+        <button type="button" style="background-color:brown;" onclick="indexPage()" class="btn btn-secondary" href="index.html" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
