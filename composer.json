@@ -13,5 +13,8 @@
         "firebase/php-jwt": "^6.2",
         "zircote/swagger-php": "3.*",
         "components/jquery": "^3.6"
+    },
+    "require-dev": {
+        "heroku/heroku-buildpack-php": "^220.0"
     }
 }
