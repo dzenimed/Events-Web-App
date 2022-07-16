@@ -1,0 +1,16 @@
+#circle1 {
+    background: lightblue;
+    position: relative;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    width: 400px;
+    height: 400px;
+    z-index: -1;
+}
+
+.container marketing{
+  position: absolute;
+  top: -200px;
+  z-index: 10;
+}
