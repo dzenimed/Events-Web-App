@@ -128,7 +128,7 @@
           for (let i = 0; i < data.length; i++) {
             html += `
             <div class="cardd">
-            <div class="cardd-image"> <img src="Frame 1-11.png" alt="" srcset=""> </div>
+            <div class="cardd-image"> <img src="` + data[i].image_link + `" alt="" srcset=""> </div>
             <div class="cardd-info">
             <h3 class="eventt">` + data[i].name + `</h3><br>
             <p>📍 ` + data[i].city + `</p>
@@ -160,7 +160,8 @@
             $("#location").val(data.city);
             $("#address").val(data.address);
             $("#date").val(data.date_held);
-            $("#exampleModal").modal("show");
+            $("#tickets").val(data.num_of_tickets);
+            $("#eventModal").modal("show");
           });
         }
 
@@ -260,11 +261,11 @@
 
 </body>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">About this event</h5>
+        <h5 class="modal-title" id="eventModalLabel">About this event</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -282,6 +283,7 @@
       <p><strong>Description: </strong><input id="description" type="text" disabled/></p>
       <p><strong>📍 City: </strong><input id="location" type="text" disabled/></p>
       <p><strong>📍 Address: </strong><input id="address" type="text" disabled/></p>
+      <p><strong>Number of tickets available: </strong><input id="tickets" type="text" disabled/></p>
       <p><strong>🗓️ Date: </strong><input id="date" type="text" disabled/></p>
       <div class="modal-footer">
         <button type="button" style="background-color:brown;" onclick="indexPage()" class="btn btn-secondary" href="index.html" data-dismiss="modal">Close</button>

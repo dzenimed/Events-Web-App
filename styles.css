@@ -98,6 +98,11 @@ p {
   color: #282829 !important;
 }
 
+.btn btn-lg btn-warning{
+  text-align: center;
+  vertical-align:middle;
+}
+
 .modal-container{
   min-width: 100%;
 }
@@ -123,6 +128,11 @@ p {
 }
 
 #date{
+  border: none;
+  width: 100%;
+}
+
+#tickets{
   border: none;
   width: 100%;
 }
