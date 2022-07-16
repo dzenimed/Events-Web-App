@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Vertex Events</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+  <style>
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="container marketing" style="margin-top:100px;">
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <form id="register-form">
+          <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" placeholder="Username">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" name="name" class="form-control" placeholder="First Name">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Surname</label>
+            <input type="text" name="surname" class="form-control" placeholder="Surname">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" placeholder="Email">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Password">
+          </div>
+          <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+      </div>
+    </div>
+  </main>
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/jquery.validate.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  <script src="js/register-service.js"></script>
+  <script type="text/javascript">
+    RegisterService.init();
+  </script>
+</body>
