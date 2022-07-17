@@ -29,7 +29,7 @@
             <a class="nav-link active" aria-current="page" href="#">Events</a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="#">My Events</a>
+            <a class="nav-link" href="reservations.html">My Events</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="login.html">Login</a>
@@ -78,7 +78,12 @@
 
 
   <div class="conntainer">
-    <div class="cardd-content" style="display: none;">
+    <div id="card-content" class="cardd-content" style="display: none;">
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
       <script>
         $.get("rest/events", function(data) {
 
@@ -241,6 +246,9 @@
             window.location.href = "index.html";
           }
           function loginPage() {
+            window.location.href = "login.html";
+          }
+          function reservationPage() {
             window.location.href = "login.html";
           }
         </script>
