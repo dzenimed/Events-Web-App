@@ -21,16 +21,16 @@ Flight::route('GET /admin/users', function () {
 
 //check out
 /**
- * @OA\Get(path="/admin/users/{id}", tags={"x-admin", "user"}, security={{"ApiKeyAuth":{}}},
+ * @OA\Get(path="/user/{id}", tags={"user"}, security={{"ApiKeyAuth":{}}},
  *     @OA\Parameter(@OA\Schema(type="integer"), in="path", name="id", description="Id of user"),
  *     @OA\Response(response="200", description="Fetch individual user")
  * )
  */
-Flight::route('GET /admin/users/@id', function ($id) {
+Flight::route('GET /user/@id', function ($id) {
     if (Flight::get('user')['id'] != $id) {
         throw new Exception("This user is not for you.", 401);
     }
-    Flight::json(Flight::userService()->get_by_id($id));
+    Flight::json(Flight::userService()->get_user_by_id($id));
 });
 
 /**

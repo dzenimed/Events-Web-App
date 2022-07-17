@@ -17,6 +17,11 @@ class UserService extends BaseService
         $this->smtpClient = new SMTPClient();
     }
 
+    public function get_user_by_id($id)
+    {
+        return $this->dao->get_user_by_id($id);
+    }
+
     public function get_user($search, $offset, $limit, $order)
     {
         if ($search) {
