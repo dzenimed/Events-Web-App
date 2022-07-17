@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
+<h1>Vertex Events
+  <style>
+  h1 {
+    padding-left: 25px;
+    padding-top: 10px;
+  }
+  </style>
+</h1>
+  <hr class="my-4">
+
 <head>
   <meta charset="utf-8">
   <title>Vertex Events</title>
@@ -17,27 +27,37 @@
   <main>
     <div class="container marketing" style="margin-top:100px;">
       <!-- Three columns of text below the carousel -->
+      <h2>Please fill in the following information in order to create an account
+        <style>
+          h2 {
+            font-size: 22px;
+            color: #393985;
+            font-style: oblique;
+          }
+        </style>
+      </h2>
+    <br>
       <div class="row">
         <form id="register-form">
           <div class="mb-3">
             <label class="form-label">Username</label>
-            <input type="text" name="username" class="form-control" placeholder="Username">
+            <input type="text" name="username" class="form-control" placeholder="Username" required>
           </div>
           <div class="mb-3">
             <label class="form-label">Name</label>
-            <input type="text" name="name" class="form-control" placeholder="First Name">
+            <input type="text" name="name" class="form-control" placeholder="First Name" required>
           </div>
           <div class="mb-3">
             <label class="form-label">Surname</label>
-            <input type="text" name="surname" class="form-control" placeholder="Surname">
+            <input type="text" name="surname" class="form-control" placeholder="Surname" required>
           </div>
           <div class="mb-3">
             <label class="form-label">Email</label>
-            <input type="email" name="email" class="form-control" placeholder="Email">
+            <input type="email" name="email" class="form-control" placeholder="Email" required>
           </div>
           <div class="mb-3">
             <label class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" placeholder="Password">
+            <input type="password" name="password" class="form-control" placeholder="Password" required>
           </div>
           <button type="submit" class="btn btn-primary">Register</button>
         </form>
