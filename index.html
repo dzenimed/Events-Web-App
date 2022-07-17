@@ -43,17 +43,10 @@
         </ul>
       </div>
       <form class="d-flex">
-        <button class="btn btn-dark" type="button" onclick="UserService.logout()">Logout</button>
+        <button id="logout" class="btn btn-dark" type="button" onclick="UserService.logout()">Logout</button>
       </form>
     </div>
   </nav>
-
-  <script src="js/jquery-3.6.0.min.js"></script>
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/jquery.validate.min.js"></script>
-  <script src="js/user-service.js"></script>
-  <script src="js/events-service.js"></script>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
   <div class="container">
     <br />
@@ -219,10 +212,16 @@
     });
   </script>
 
-  </script>
-
 
 </body>
+
+
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/user-service.js"></script>
+<script src="js/events-service.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
 <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
