@@ -1,6 +1,8 @@
 <?php
 class Config {
   const DATE_FORMAT = "Y-m-d H:i:s";
+  public const JWT_TOKEN_TIME = 604800;
+  public const JWT_SECRET = "y4KvQcZVqn3F7uxQvcFk";
 
   const DB_HOST = "eu-cdbr-west-03.cleardb.net";
   const DB_USERNAME = "b922072bbc67c9";
