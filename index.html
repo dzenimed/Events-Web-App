@@ -31,12 +31,9 @@
           <li class="nav-item">
             <a class="nav-link" href="reservations.html">My Events</a>
           </li>
-          <li class="nav-item">
+          <li id="login_link" class="nav-item">
             <a class="nav-link" href="login.html">Login</a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" onclick="doLogout()" href="index.html">Logout</a>
-          </li> -->
           <li class="nav-item">
             <a class="nav-link" href="register.html">Register</a>
           </li>
@@ -118,8 +115,6 @@
         function showModal(id) {
           $.get('rest/event/' + id, function(data) {
             console.log(data);
-            // console.log("aaa")
-            // $("#exampleModal .modal-body").html(id);
             $("#name").val(data.name);
             $("#description").val(data.description);
             $("#location").val(data.city);
