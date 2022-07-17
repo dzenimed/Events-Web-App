@@ -7,12 +7,10 @@ require_once dirname(__FILE__).'/../../vendor/autoload.php';
 
 class EventService extends BaseService
 {
-    private $eventTypeDao;
 
     public function __construct()
     {
         $this->dao = new EventDao();
-        $this->eventTypeDao = new EventTypeDao();
     }
 
     public function get_events_by_name($search, $offset, $limit, $order){
@@ -70,4 +68,8 @@ class EventService extends BaseService
         }
         return $event;
     }
+
+    public function update($id, $num_of_tickets){
+      $this->dao->update_event($id, $num_of_tickets);
+  }
 }
