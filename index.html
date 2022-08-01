@@ -48,7 +48,7 @@
 
     </div>
       <form class="d-flex">
-        <button id="logout" class="btn btn-dark" type="button" onclick="UserService.logout()">Logout</button>
+        <button id="logout" class="btn btn-dark" type="button" onclick="UserService.logout()" style="display:none;">Logout</button>
       </form>
     </div>
   </nav>
@@ -57,25 +57,25 @@
     <br />
     <div id="containersearch" class="row justify-content-center ">
       <div class="col-12 col-md-10 col-lg-8 ">
-        <form class="card card-sm ">
+
           <div class="card-body row no-gutters align-items-center">
             <div class="col-auto">
               <i class="fas fa-search h4 text-body"></i>
             </div>
             <!--end of col-->
             <div class="col">
-              <form id="submit-search">
+
                 <input type="search" name="search" placeholder="Search..." id="search">
               <!-- <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search"> -->
-              <form/>
+
             </div>
             <!--end of col-->
             <div class="col-auto">
-              <button class="btn btn-lg btn-warning" type="submit">Search</button>
+              <button class="btn btn-success" onclick="searchEvent()">Search</button>
             </div>
             <!--end of col-->
           </div>
-        </form>
+
       </div>
       <!--end of col-->
     </div>
@@ -90,6 +90,12 @@
         </div>
       </div>
       <script>
+      var token = localStorage.getItem("token");
+      if (token) {
+        //const btn = document.getElementById('logout');
+        $('#logout').show();
+      }
+
         $.get("rest/events", function(data) {
 
           $(".cardd-content").html("");
@@ -118,7 +124,34 @@
           }, 5000);
         });
 
+        function searchEvent(){
+          console.log($("#search").val());
 
+
+          var search = $("#search").val();
+          $.get("rest/events?search="+search, function(data){
+            $(".cardd-content").html("");
+            var html = "";
+            for (let i = 0; i < data.length; i++) {
+              html += `
+              <div class="cardd">
+              <div class="cardd-image"> <img src="` + data[i].image_link + `" alt="" srcset=""> </div>
+              <div class="cardd-info">
+              <h3 class="eventt">` + data[i].name + `</h3><br>
+              <p>📍 ` + data[i].city + `</p>
+              <p>🗓️ ` + data[i].date_held + `</p>
+              <p>
+              <button type="button" class="btn btn-primary" onclick="showModal(${data[i].id})">
+              View More
+            </button></p>
+          </div>
+      </div>
+              `;
+            }
+        $(".cardd-content").html(html);
+        console.log(data);
+        });
+      }
 
         function showModal(id) {
           $.get('rest/event/' + id, function(data) {
