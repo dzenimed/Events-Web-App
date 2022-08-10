@@ -16,7 +16,7 @@
 
 </head>
 
-<body>
+<body style="background-color:grey;">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">VertexEvents</a>
@@ -71,7 +71,7 @@
             </div>
             <!--end of col-->
             <div class="col-auto">
-              <button class="btn btn-success" onclick="searchEvent()">Search</button>
+              <button class="btn btn-dark" onclick="searchEvent()">Search</button>
             </div>
             <!--end of col-->
           </div>
@@ -110,7 +110,7 @@
             <p>📍 ` + data[i].city + `</p>
             <p>🗓️ ` + data[i].date_held + `</p>
             <p>
-            <button type="button" class="btn btn-primary" onclick="showModal(${data[i].id})">
+            <button style="background-color: #f23fa1;" type="button" class="btn btn-primary" onclick="showModal(${data[i].id})">
             View More
           </button></p>
         </div>
@@ -123,6 +123,7 @@
             console.log("Wait");
           }, 5000);
         });
+
 
         function searchEvent(){
           console.log($("#search").val());
@@ -269,10 +270,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="eventModalLabel">About this event</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <button type="button" class="reserve" onclick="makeReservation()" data-dismiss="modal" aria-label="Make a reservation">
           <span aria-hidden="true">&times;</span>
-        </button>
+        </button> -->
 
       </div>
       <p style="text-align: center;"></p>
@@ -302,6 +303,43 @@
     </div>
   </div>
 </div>
+
+<footer>
+
+  <div class="footer-dark">
+      <footer>
+          <div class="container">
+              <div class="row">
+                  <div class="col-sm-6 col-md-3 item">
+                      <h3>Services</h3>
+                      <ul>
+                          <li><a href="#">Web design</a></li>
+                          <li><a href="#">Development</a></li>
+                          <li><a href="#">Hosting</a></li>
+                      </ul>
+                  </div>
+                  <div class="col-sm-6 col-md-3 item">
+                      <h3>About</h3>
+                      <ul>
+                          <li><a href="#">Company</a></li>
+                          <li><a href="#">Team</a></li>
+                          <li><a href="#">Careers</a></li>
+                      </ul>
+                  </div>
+                  <div class="col-md-6 item text">
+                      <h3>Vertex Events</h3>
+                      <p style="color:red;">Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>
+                  </div>
+                  <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a></div>
+              </div>
+              <p class="copyright">Company Name © 2018</p>
+          </div>
+      </footer>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+
+</footer>
 
 
 </html>
