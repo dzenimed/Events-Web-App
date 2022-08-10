@@ -17,9 +17,9 @@
 </head>
 
 <body style="background-color:grey;">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav style="background-color: #282d32;" class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">VertexEvents</a>
+      <a style="color: white; font-size: 30px;"class="navbar-brand" href="#">VertexEvents</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -29,13 +29,10 @@
             <a class="nav-link active" aria-current="page" href="#">Events</a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="reservations.html">My Events</a>
+            <a style="margin-left: 1160px; font-size: 17px; color:#7a7879;" class="nav-link" href="reservations.html">My Events</a>
           </li>
           <li id="login_link" class="nav-item">
-            <a class="nav-link" href="login.html">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="register.html">Register</a>
+            <a style="font-size: 17px; color:white;" class="nav-link" href="login.html">Login</a>
           </li>
         </ul>
       </div>
@@ -60,7 +57,7 @@
 
           <div class="card-body row no-gutters align-items-center">
             <div class="col-auto">
-              <i class="fas fa-search h4 text-body"></i>
+              <i style="position: relative; left: 110px; top:4px;"class="fas fa-search h4 text-body"></i>
             </div>
             <!--end of col-->
             <div class="col">
@@ -71,7 +68,7 @@
             </div>
             <!--end of col-->
             <div class="col-auto">
-              <button class="btn btn-dark" onclick="searchEvent()">Search</button>
+              <button style="position: relative; left: -120px;"class="btn btn-dark" onclick="searchEvent()">Search</button>
             </div>
             <!--end of col-->
           </div>
@@ -106,11 +103,11 @@
             <div class="cardd">
             <div class="cardd-image"> <img src="` + data[i].image_link + `" alt="" srcset=""> </div>
             <div class="cardd-info">
-            <h3 class="eventt">` + data[i].name + `</h3><br>
+            <h3 style="color: #ffffff;" class="eventt">` + data[i].name + `</h3><br>
             <p>📍 ` + data[i].city + `</p>
             <p>🗓️ ` + data[i].date_held + `</p>
             <p>
-            <button style="background-color: #f23fa1;" type="button" class="btn btn-primary" onclick="showModal(${data[i].id})">
+            <button style="background-color: #f23fa1;" type="button" class="btn btn-dark" onclick="showModal(${data[i].id})">
             View More
           </button></p>
         </div>
@@ -138,11 +135,11 @@
               <div class="cardd">
               <div class="cardd-image"> <img src="` + data[i].image_link + `" alt="" srcset=""> </div>
               <div class="cardd-info">
-              <h3 class="eventt">` + data[i].name + `</h3><br>
+              <h3 style="color: #ffffff;" class="eventt">` + data[i].name + `</h3><br>
               <p>📍 ` + data[i].city + `</p>
               <p>🗓️ ` + data[i].date_held + `</p>
               <p>
-              <button type="button" class="btn btn-primary" onclick="showModal(${data[i].id})">
+              <button style="background-color: #f23fa1;" type="button" class="btn btn-dark" onclick="showModal(${data[i].id})">
               View More
             </button></p>
           </div>
@@ -328,16 +325,14 @@
                   </div>
                   <div class="col-md-6 item text">
                       <h3>Vertex Events</h3>
-                      <p style="color:red;">Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>
+                      <p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>
                   </div>
                   <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a></div>
               </div>
-              <p class="copyright">Company Name © 2018</p>
+              <p class="copyright">Vertex Events © 2022</p>
           </div>
       </footer>
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
 
 </footer>
 

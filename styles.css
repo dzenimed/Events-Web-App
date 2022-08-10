@@ -53,7 +53,7 @@
   font-size: 1.8em;
   font-weight: 800;
   margin-bottom: 5px;
-  color: #F51D93;
+
 }
 
 .cardd-info p {
@@ -204,6 +204,8 @@ form {
 
 #search {
   width: 500px;
+  position: relative;
+  left: 100px;
 }
 /* search{
 	position: relative;
