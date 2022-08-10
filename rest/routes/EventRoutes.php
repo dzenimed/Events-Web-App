@@ -10,7 +10,7 @@
  */
 Flight::route('GET /events', function () {
     $offset = Flight::query('offset', 0);
-    $limit = Flight::query('limit', 25);
+    $limit = Flight::query('limit', 6);
     $search = Flight::query('search', '');
     $order = Flight::query('order', "-id");
 
