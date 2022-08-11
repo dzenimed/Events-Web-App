@@ -28,7 +28,7 @@
           <!-- <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Events</a>
           </li> -->
-          <li class="nav-item">
+          <li id="my_events" style="display:none;" class="nav-item">
             <a style="margin-left: 1160px; font-size: 17px; color:#7a7879;" class="nav-link" href="reservations.html">My Events</a>
           </li>
           <li id="login_link" class="nav-item">
@@ -91,6 +91,8 @@
       if (token) {
         //const btn = document.getElementById('logout');
         $('#logout').show();
+        $('#my_events').show();
+        $('#login_link').hide();
       }
 
         $.get("rest/events", function(data) {

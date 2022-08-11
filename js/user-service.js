@@ -30,9 +30,15 @@ var UserService = {
   },
 
   logout: function() {
+    // setTimeout(()=> {window.location.reload(true); });
     localStorage.clear();
     const btn = document.getElementById('logout');
     btn.style.display = 'none';
+
+    // const my_ev = document.getElementById('my_events');
+    // btn.style.display = 'none';
+    // const btn = document.getElementById('logout');
+    // btn.style.display = 'block';
   },
 
   user_info: function() {
