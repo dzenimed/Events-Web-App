@@ -33,7 +33,7 @@ Flight::route('GET /user/reservations', function () {
  */
 Flight::route('POST /user/add/reservation/@event_id', function ($event_id) {
     $data = Flight::request()->data->getData();
-    Flight::json(Flight::reservationService()->add_reservation($data, Flight::get('event')['id'], Flight::get('user')['id']));
+    Flight::json(Flight::reservationService()->add_reservation($data, $event_id, Flight::get('user')['id']));
 });
 
 /**

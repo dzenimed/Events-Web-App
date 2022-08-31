@@ -69,7 +69,15 @@ class EventService extends BaseService
         return $event;
     }
 
-    public function update($id, $num_of_tickets){
-      $this->dao->update_event($id, $num_of_tickets);
-  }
+    public function update_event($id, $event){
+      return $this->update($id, $event);
+    }
+
+  //   public function update($id, $num_of_tickets){
+  //     $this->dao->update_event($id);
+  // }
+
+  //   public function update($id, $num_of_tickets){
+  //     $this->dao->update_event($id, $num_of_tickets);
+  // }
 }

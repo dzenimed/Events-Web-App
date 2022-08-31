@@ -46,7 +46,7 @@ Flight::route('GET /event/@city', function ($city) {
 *     @OA\RequestBody(description="Basic event info", required=true,
 *       @OA\MediaType(mediaType="application/json",
 *    			@OA\Schema(
-*    				@OA\Property(property="num_of_tickets", type="int", example="2",	description="Number of tickets user wants to reserve")
+*    				@OA\Property(property="num_of_tickets", type="int", example="1",	description="Number of tickets user wants to reserve")
 *        )
 *     )),
 *     @OA\Response(
@@ -61,13 +61,13 @@ Flight::route('GET /event/@city', function ($city) {
 */
 Flight::route('PUT /user/event/@id', function($id){
   $data = Flight::request()->data->getData();
-  Flight::json(Flight::eventService()->update(intval($id), $data));
+  Flight::json(Flight::eventService()->update_event(intval($id), $data));
 });
 
-Flight::route('PUT /notes/@id', function($id){
-  $data = Flight::request()->data->getData();
-  Flight::json(Flight::noteService()->update(Flight::get('user'), $id, $data));
-});
+// Flight::route('PUT /notes/@id', function($id){
+//   $data = Flight::request()->data->getData();
+//   Flight::json(Flight::noteService()->update(Flight::get('user'), $id, $data));
+// });
 
 /**
 *  @OA\Post(path="/admin/add/event", description = "Add event to system.", tags={"x-admin", "event"}, security={{"ApiKeyAuth":{}}},

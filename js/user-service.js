@@ -35,10 +35,10 @@ var UserService = {
     const btn = document.getElementById('logout');
     btn.style.display = 'none';
 
-    // const my_ev = document.getElementById('my_events');
-    // btn.style.display = 'none';
-    // const btn = document.getElementById('logout');
-    // btn.style.display = 'block';
+    const my_ev = document.getElementById('my_events');
+    my_ev.style.display = 'none';
+    const login_link = document.getElementById('login_link');
+    login_link.style.display = 'block';
   },
 
   user_info: function() {

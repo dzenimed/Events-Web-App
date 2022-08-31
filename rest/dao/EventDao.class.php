@@ -48,11 +48,27 @@ class EventDao extends BaseDao
         return $this->query("SELECT * FROM event WHERE id = :id", ['id' => $id]);
     }
 
-    public function update_event($id, $num_of_tickets){
-      $query = "UPDATE event SET num_of_tickets = num_of_tickets-:num_of_tickets WHERE id = :id";
-      $stmt = $this->connection->prepare($query);
-      $params=["id" => $id, "quantity" => $quantity];
-      $stmt -> execute($params);
+    // public function update_event($id, $event){
+    //   return $this->update($id, $event);
+    // }
+      //return $this->update("UPDATE event SET num_of_tickets = num_of_tickets-:num_of_tickets WHERE id = :id", ["id" => $id, "num_of_tickets" => $num_of_tickets]);
+      // $query = "UPDATE event SET num_of_tickets = num_of_tickets-:num_of_tickets WHERE id = :id";
+      // $stmt = $this->connection->prepare($query);
+      // $params=["id" => $id, "quantity" => $quantity];
+      // $stmt -> execute($params);
+
+
+    // public function update_event($id, $num_of_tickets){
+    //   $query = "UPDATE event SET num_of_tickets = num_of_tickets-1 WHERE id = :id";
+    //   $stmt = $this->connection->prepare($query);
+    //   $params=["id" => $id];
+    //   $stmt -> execute($params);
     //  return $this->query_unique("UPDATE event SET num_of_tickets = num_of_tickets-:num_of_tickets WHERE id = :id", ["id" => $id, "num_of_tickets" => $num_of_tickets]);
-    }
+    //}
+
+
+        // public function get_event_by_only_name($id)
+        // {
+        //     return $this->query("SELECT id FROM event WHERE name=""", ['id' => $id]);
+        // }
 }

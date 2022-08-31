@@ -29,6 +29,7 @@ class ReservationService extends BaseService
     public function add_reservation($reservation, $event_id, $user_id)
     {
         $event = $this->eventDao->get_event_by_id($event_id);
+        $this->eventDao->update_event($event_id, 1); //num_of_tickets-1
 
         $reservation["status"] = "ACTIVE";
         $reservation["date_reserved"] = date(Config::DATE_FORMAT);
