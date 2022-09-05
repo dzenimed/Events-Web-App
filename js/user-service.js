@@ -24,7 +24,7 @@ var UserService = {
         window.location.replace("index.html");
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
-        toastr.error(XMLHttpRequest.responseJSON.message);
+        JSON.parse(toastr.error(XMLHttpRequest.responseJSON.message));
       }
     });
   },

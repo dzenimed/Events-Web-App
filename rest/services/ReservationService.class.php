@@ -26,17 +26,29 @@ class ReservationService extends BaseService
         return $this->dao->get_user_reservations($user['id']);
     }
 
-    public function add_reservation($reservation, $event_id, $user_id)
+    public function add_reservation($reservation)
     {
-        $event = $this->eventDao->get_event_by_id($event_id);
-        $this->eventDao->update_event($event_id, 1); //num_of_tickets-1
-
-        $reservation["status"] = "ACTIVE";
-        $reservation["date_reserved"] = date(Config::DATE_FORMAT);
-        $reservation["user_id"] = $user_id;
-        $reservation["event_id"] = $event_id;
-
-        return parent::add($reservation);
+      try {
+          $this->dao->beginTransaction();
+          $reservation = parent::add([
+          "status" => "ACTIVE",
+          "date_reserved" => date(Config::DATE_FORMAT),
+          "user_id" => $reservation["user_id"],
+          "event_id" => $reservation["event_id"],
+      ]);
+          $this->dao->commit();
+      } catch (\Exception $e) {
+          $this->dao->rollBack();
+          throw $e;
+      }
+      return $reservation;
+        // $event = $this->eventDao->get_event_by_id($event_id);
+        // $this->eventDao->update_event($event_id, 1); //num_of_tickets-1
+        // $reservation["status"] = "ACTIVE";
+        // $reservation["date_reserved"] = date(Config::DATE_FORMAT);
+        // $reservation["user_id"] = $user_id;
+        // $reservation["event_id"] = $event_id;
+        // return parent::add($reservation);
     }
 
     public function update_reservation($user, $id, $reservationdetails)

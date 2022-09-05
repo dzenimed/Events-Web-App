@@ -20,10 +20,12 @@ Flight::route('GET /user/reservations', function () {
 });
 
 /**
-*  @OA\Post(path="/user/add/reservation/{event_id}", description = "Add reservation to system.", tags={"reservation"}, security={{"ApiKeyAuth":{}}},
+*  @OA\Post(path="/user/add/reservation", description = "Add reservation to system.", tags={"reservation"}, security={{"ApiKeyAuth":{}}},
 *   @OA\RequestBody(description="Basic reservation info", required=true,
 *     @OA\MediaType(mediaType="application/json",
 *    		@OA\Schema(
+*         @OA\Property(property="event_id", type="integer", example="1", description="Id of event"),
+*         @OA\Property(property="user_id", type="integer", example="1", description="Id of user"),
 *     )
 *      )),
  *    @OA\Response(
@@ -31,9 +33,10 @@ Flight::route('GET /user/reservations', function () {
  *       description="Added reservation to system.")
  * )
  */
-Flight::route('POST /user/add/reservation/@event_id', function ($event_id) {
+Flight::route('POST /user/add/reservation', function () {
     $data = Flight::request()->data->getData();
-    Flight::json(Flight::reservationService()->add_reservation($data, $event_id, Flight::get('user')['id']));
+    Flight::json(Flight::reservationService()->add_reservation($data));
+    // Flight::json(Flight::reservationService()->add_reservation($data, $event_id, Flight::get('user')['id']));
 });
 
 /**

@@ -5,6 +5,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   <meta charset="UTF-8">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" type="text/css">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vertex Events</title>
@@ -149,7 +150,7 @@
               `;
             }
         $(".cardd-content").html(html);
-        console.log(data);
+        //console.log(data);
         });
       }
 
@@ -180,23 +181,36 @@
 
         function makeReservation() {
           var event_id = localStorage.getItem("eventIdValue");
-          console.log(event_id);
+          //console.log(event_id);
           var token = localStorage.getItem("token");
           var parsed_jwt = parseJwt(token);
-          console.log(parsed_jwt.id); //user id
-           $.get('rest/users/' + token, function(data) {
+          var user_id = parsed_jwt.id;
+          //console.log(user_id); //user id
 
-            // localStorage.setItem("eventIdValue", data.id);
-          //   $("#name").val(data.name);
-          //   $("#description").val(data.description);
-          //   $("#location").val(data.city);
-          //   $("#address").val(data.address);
-          //   $("#date").val(data.date_held);
-          //   $("#tickets").val(data.num_of_tickets);
-          //   $("#eventReservationModal").modal("show");
-           });
+          var input_user_id = document.getElementById('user_id').value;
+          input_user_id = user_id;
+          var input_event_id = document.getElementById('event_id').value;
+          input_event_id = event_id;
+          // console.log(input_event_id);
+          // console.log(input_user_id);
+         $.ajax({
+           url: 'rest/user/add/reservation',
+           type: "POST",
+           beforeSend: function(xhr){
+           xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+           },
+           data: JSON.stringify({ user_id : input_user_id, event_id : input_event_id}),
+           contentType: "application/json",
+           dataType: "json",
+           success: console.log("success"),
+           error: function(XMLHttpRequest, textStatus, errorThrown) {
+             JSON.parse(toastr.error(XMLHttpRequest.responseJSON.message));
+           }
+         });
+
         }
           //alert("Reservation created.");
+
 
       </script>
     </div>
@@ -282,7 +296,6 @@
     });
   </script>
 
-
 </body>
 
 
@@ -291,6 +304,11 @@
 <script src="js/jquery.validate.min.js"></script>
 <script src="js/user-service.js"></script>
 <script src="js/events-service.js"></script>
+<script src="js/reservation-service.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script type="text/javascript">
+  // ReservationService.init();
+</script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
 <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
@@ -352,22 +370,24 @@
       <div class="row">
         <form id="reservation-form">
           <div class="mb-3">
-            <label class="form-label">Number of tickets</label>
-            <input type="number" name="name" class="form-control" placeholder="1" min="1" required>
+            <label class="form-label">Number of tickets:</label>
+            <input type="number" name="ticket_number" class="form-control" placeholder="1" min="1" max="1" required>
           </div>
           <div class="mb-3">
-            <label class="form-label">Email</label>
-            <input type="email" name="email" class="form-control" placeholder="Email" required>
+            <label class="form-label">Email:</label>
+            <input type="email" name="contact_email" class="form-control" placeholder="somename@example.com" required>
           </div>
-          <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" placeholder="Password" required>
+          <div class="mb-3" style="display:none;">
+            <input type="number" id="user_id" name="user_id" class="form-control" required>
+          </div>
+          <div class="mb-3" style="display:none;">
+            <input type="number" id="event_id" name="event_id" class="form-control" required>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" style="background-color:black;" onclick="indexPage()" class="btn btn-secondary" href="index.html" data-dismiss="modal">Cancel</button>
-        <button type="button" style="background-color:#F51D93;" onclick="makeReservation()" class="btn btn-secondary" href="login.html" data-dismiss="modal">Reserve</button>
+        <button type="submit" style="background-color:#F51D93;" onclick="makeReservation()" class="btn btn-secondary" href="login.html" data-dismiss="modal">Reserve</button>
       </div>
     </div>
   </div>

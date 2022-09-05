@@ -60,7 +60,7 @@ var ReservationService = {
   },
   reserve: function(entity) {
     $.ajax({
-      url: 'rest/register',
+      url: 'rest/user/add/reservation',
       type: 'POST',
       data: JSON.stringify(entity),
       contentType: "application/json",
@@ -72,6 +72,7 @@ var ReservationService = {
       //  window.location.replace("login.html");
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log("error");
         toastr.error(XMLHttpRequest.responseJSON.message);
       }
     });
