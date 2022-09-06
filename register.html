@@ -12,7 +12,13 @@
     }
   </style>
 </head>
-
+  <style>
+  body {
+   background-image: url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  </style>
 <body style="background-color:grey;">
   <nav style="background-color: #282d32;" class="navbar navbar-expand-lg">
     <div class="container-fluid">
@@ -21,14 +27,21 @@
     </div>
   </nav>
   <main>
-    <div class="container marketing" style="margin-top:100px;">
+    <div class="container" style="margin-top:100px;">
       <!-- Three columns of text below the carousel -->
       <h2>Please fill in the following information in order to create an account
         <style>
           h2 {
             font-size: 22px;
-            color: black;
+            color: white;
             font-style: oblique;
+          }
+          .container {
+            position: relative;
+            background-color: rgba(0, 0, 0, 0.29);
+          }
+          .container:hover {
+            background-color: black;
           }
         </style>
       </h2>
@@ -36,26 +49,26 @@
       <div class="row">
         <form id="register-form">
           <div class="mb-3">
-            <label class="form-label">Username</label>
-            <input type="text" name="username" class="form-control" placeholder="Username" required>
+            <label class="form-label" style="color:white;">Username</label>
+            <input type="text" name="username" class="form-control" placeholder="Enter desired username..." required>
           </div>
           <div class="mb-3">
-            <label class="form-label">Name</label>
-            <input type="text" name="name" class="form-control" placeholder="First Name" required>
+            <label class="form-label" style="color:white">Name</label>
+            <input type="text" name="name" class="form-control" placeholder="Enter your name..." required>
           </div>
           <div class="mb-3">
-            <label class="form-label">Surname</label>
-            <input type="text" name="surname" class="form-control" placeholder="Surname" required>
+            <label class="form-label" style="color:white">Surname</label>
+            <input type="text" name="surname" class="form-control" placeholder="Enter your surname..." required>
           </div>
           <div class="mb-3">
-            <label class="form-label">Email</label>
-            <input type="email" name="email" class="form-control" placeholder="Email" required>
+            <label class="form-label" style="color:white">Email</label>
+            <input type="email" name="email" class="form-control" placeholder="Enter your email..." required>
           </div>
           <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" placeholder="Password" required>
+            <label class="form-label" style="color:white">Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Choose a password..." required>
           </div>
-          <button style="background-color: #F51D93;" type="submit" class="btn btn-dark">Register</button>
+          <button style="background-color: #F51D93; position: center" type="submit" class="btn btn-dark">Register</button>
         </form>
       </div>
     </div>
