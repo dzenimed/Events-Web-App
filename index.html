@@ -21,16 +21,17 @@
 
 </head>
 <style>
-body {
- background-image: url('https://images.unsplash.com/photo-1619229725920-ac8b63b0631a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80');
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+  body {
+    background-image: url('https://images.unsplash.com/photo-1619229725920-ac8b63b0631a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 </style>
+
 <body style="background-color:grey;">
   <nav style="background-color: #282d32;" class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a style="color: white; font-size: 30px;"class="navbar-brand" href="index.html">Vertex Events</a>
+      <a style="color: white; font-size: 30px;" class="navbar-brand" href="index.html">Vertex Events</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -55,9 +56,9 @@ body {
       </div> -->
 
     </div>
-      <form class="d-flex">
-        <button id="logout" class="btn btn-dark" type="button" onclick="UserService.logout()" style="display:none;">Logout</button>
-      </form>
+    <form class="d-flex">
+      <button id="logout" class="btn btn-dark" type="button" onclick="UserService.logout()" style="display:none;">Logout</button>
+    </form>
     </div>
   </nav>
 
@@ -66,23 +67,23 @@ body {
     <div id="containersearch" class="row justify-content-center ">
       <div class="col-12 col-md-10 col-lg-8 ">
 
-          <div class="card-body row no-gutters align-items-center">
-            <div class="col-auto">
-              <i style="position: relative; left: 110px; top:4px;"class="fas fa-search h4 text-body"></i>
-            </div>
-            <!--end of col-->
-            <div class="col">
-
-                <input type="search" name="search" placeholder="Search..." id="search">
-              <!-- <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search"> -->
-
-            </div>
-            <!--end of col-->
-            <div class="col-auto">
-              <button style="position: relative; left: -120px;"class="btn btn-dark" onclick="searchEvent()">Search</button>
-            </div>
-            <!--end of col-->
+        <div class="card-body row no-gutters align-items-center">
+          <div class="col-auto">
+            <i style="position: relative; left: 110px; top:4px;" class="fas fa-search h4 text-body"></i>
           </div>
+          <!--end of col-->
+          <div class="col">
+
+            <input type="search" name="search" placeholder="Search..." id="search">
+            <!-- <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search"> -->
+
+          </div>
+          <!--end of col-->
+          <div class="col-auto">
+            <button style="position: relative; left: -120px;" class="btn btn-dark" onclick="searchEvent()">Search</button>
+          </div>
+          <!--end of col-->
+        </div>
 
       </div>
       <!--end of col-->
@@ -98,13 +99,13 @@ body {
         </div>
       </div>
       <script>
-      var token = localStorage.getItem("token");
-      if (token) {
-        //const btn = document.getElementById('logout');
-        $('#logout').show();
-        $('#my_events').show();
-        $('#login_link').hide();
-      }
+        var token = localStorage.getItem("token");
+        if (token) {
+          //const btn = document.getElementById('logout');
+          $('#logout').show();
+          $('#my_events').show();
+          $('#login_link').hide();
+        }
 
         $.get("rest/events", function(data) {
 
@@ -135,12 +136,12 @@ body {
         });
 
 
-        function searchEvent(){
+        function searchEvent() {
           console.log($("#search").val());
 
 
           var search = $("#search").val();
-          $.get("rest/events?search="+search, function(data){
+          $.get("rest/events?search=" + search, function(data) {
             $(".cardd-content").html("");
             var html = "";
             for (let i = 0; i < data.length; i++) {
@@ -159,10 +160,10 @@ body {
       </div>
               `;
             }
-        $(".cardd-content").html(html);
-        //console.log(data);
-        });
-      }
+            $(".cardd-content").html(html);
+            //console.log(data);
+          });
+        }
 
         function showModal(id) {
           $.get('rest/event/' + id, function(data) {
@@ -179,15 +180,15 @@ body {
           });
         }
 
-        function parseJwt (token) {
+        function parseJwt(token) {
           var base64Url = token.split('.')[1];
           var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
           var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-              return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
           }).join(''));
 
           return JSON.parse(jsonPayload);
-      };
+        };
 
         function makeReservation() {
           var event_id = localStorage.getItem("eventIdValue");
@@ -203,25 +204,26 @@ body {
           input_event_id = event_id;
           // console.log(input_event_id);
           // console.log(input_user_id);
-         $.ajax({
-           url: 'rest/user/add/reservation',
-           type: "POST",
-           beforeSend: function(xhr){
-           xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
-           },
-           data: JSON.stringify({ user_id : input_user_id, event_id : input_event_id}),
-           contentType: "application/json",
-           dataType: "json",
-           success: console.log("success"),
-           error: function(XMLHttpRequest, textStatus, errorThrown) {
-             JSON.parse(toastr.error(XMLHttpRequest.responseJSON.message));
-           }
-         });
+          $.ajax({
+            url: 'rest/user/add/reservation',
+            type: "POST",
+            beforeSend: function(xhr) {
+              xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+            },
+            data: JSON.stringify({
+              user_id: input_user_id,
+              event_id: input_event_id
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            success: console.log("success"),
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+              JSON.parse(toastr.error(XMLHttpRequest.responseJSON.message));
+            }
+          });
 
         }
-          //alert("Reservation created.");
-
-
+        //alert("Reservation created.");
       </script>
     </div>
 
@@ -335,17 +337,19 @@ body {
           function indexPage() {
             window.location.href = "index.html";
           }
+
           function loginPage() {
             window.location.href = "login.html";
           }
+
           function reservationPage() {
             var token = localStorage.getItem("token");
             if (token) {
               $("#eventReservationModal").modal("show");
 
-            //  window.location.href = "reservations.html";
-            }else{
-            window.location.href = "login.html";
+              //  window.location.href = "reservations.html";
+            } else {
+              window.location.href = "login.html";
             }
           }
         </script>
@@ -403,34 +407,35 @@ body {
 <footer>
 
   <div class="footer-dark">
-      <footer>
-          <div class="container">
-              <div class="row">
-                  <div class="col-sm-6 col-md-3 item">
-                      <h3>Services</h3>
-                      <ul>
-                          <li><a href="#">Web design</a></li>
-                          <li><a href="#">Development</a></li>
-                          <li><a href="#">Hosting</a></li>
-                      </ul>
-                  </div>
-                  <div class="col-sm-6 col-md-3 item">
-                      <h3>About</h3>
-                      <ul>
-                          <li><a href="#">Company</a></li>
-                          <li><a href="#">Team</a></li>
-                          <li><a href="#">Careers</a></li>
-                      </ul>
-                  </div>
-                  <div class="col-md-6 item text">
-                      <h3>Vertex Events</h3>
-                      <p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>
-                  </div>
-                  <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a></div>
-              </div>
-              <p class="copyright">Vertex Events © 2022</p>
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 col-md-3 item">
+            <h3>Services</h3>
+            <ul>
+              <li><a href="#">Web design</a></li>
+              <li><a href="#">Development</a></li>
+              <li><a href="#">Hosting</a></li>
+            </ul>
           </div>
-      </footer>
+          <div class="col-sm-6 col-md-3 item">
+            <h3>About</h3>
+            <ul>
+              <li><a href="#">Company</a></li>
+              <li><a href="#">Team</a></li>
+              <li><a href="#">Careers</a></li>
+            </ul>
+          </div>
+          <div class="col-md-6 item text">
+            <h3>Vertex Events</h3>
+            <p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>
+          </div>
+          <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i
+                class="icon ion-social-instagram"></i></a></div>
+        </div>
+        <p class="copyright">Vertex Events © 2022</p>
+      </div>
+    </footer>
   </div>
 
 </footer>

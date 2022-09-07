@@ -10,13 +10,13 @@ Flight::route('GET /reservation/@id', function ($id) {
 });
 
 /**
- * @OA\Get(path="/user/reservations", tags={"reservation"}, security={{"ApiKeyAuth": {}}},
+ * @OA\Get(path="/user/reservations/{user_id}", tags={"reservation"}, security={{"ApiKeyAuth": {}}},
+ *     @OA\Parameter(@OA\Schema(type="integer"), in="path", name="user_id", description="Id of user"),
  *         @OA\Response( response=200, description="List of reservations.")
  * )
  */
-Flight::route('GET /user/reservations', function () {
-    $user = Flight::get('user');
-    Flight::json(Flight::reservationService()->get_user_reservations($user));
+Flight::route('GET /user/reservations/@user_id', function ($user_id) {
+    Flight::json(Flight::reservationService()->get_user_reservations($user_id));
 });
 
 /**

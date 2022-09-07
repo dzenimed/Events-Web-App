@@ -64,11 +64,6 @@ Flight::route('PUT /user/event/@id', function($id){
   Flight::json(Flight::eventService()->update_event(intval($id), $data));
 });
 
-// Flight::route('PUT /notes/@id', function($id){
-//   $data = Flight::request()->data->getData();
-//   Flight::json(Flight::noteService()->update(Flight::get('user'), $id, $data));
-// });
-
 /**
 *  @OA\Post(path="/admin/add/event", description = "Add event to system.", tags={"x-admin", "event"}, security={{"ApiKeyAuth":{}}},
 *   @OA\RequestBody(description="Basic event info", required=true,
