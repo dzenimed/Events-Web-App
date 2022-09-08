@@ -40,10 +40,11 @@ Flight::route('POST /user/add/reservation', function () {
 });
 
 /**
-*  @OA\Put(path="/user/delete/reservation/{id}", description = "Add event type to system.", tags={"reservation"}, security={{"ApiKeyAuth":{}}},
+*  @OA\Put(path="/user/delete/reservation/{id}", description = "Change status to canclled.", tags={"reservation"}, security={{"ApiKeyAuth":{}}},
 *   @OA\RequestBody(description="Remove reservation", required=true,
 *     @OA\MediaType(mediaType="application/json",
 *    		@OA\Schema(
+*         @OA\Property(property="id", type="integer", example="1", description="Id of user"),
 *         @OA\Property(property="status", type="string", example="CANCELLED", description="Reservation status")
 *     )
 *      )),
@@ -53,6 +54,6 @@ Flight::route('POST /user/add/reservation', function () {
  * )
  */
 Flight::route('PUT /user/delete/reservation/@id', function ($id) {
-    Flight::json(Flight::reservationService()->update($id, Flight::request()->data->getData()));
-    //  Flight::json(["message" => "deleted"]);
+    Flight::reservationService()->update($id, Flight::request()->data->getData());
+    Flight::json(["message" => "deleted"]);
 });

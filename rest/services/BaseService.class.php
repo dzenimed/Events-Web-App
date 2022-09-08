@@ -1,6 +1,6 @@
 <?php
 
-class BaseService
+abstract class BaseService
 {
     protected $dao;
 
@@ -21,5 +21,9 @@ class BaseService
     {
         $this->dao->update($id, $data);
         return $this->dao->get_by_id($id);
+    }
+
+    public function delete($user, $id){
+      return $this->dao->delete($id);
     }
 }

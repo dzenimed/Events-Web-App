@@ -21,8 +21,14 @@
     }
   </style>
 </head>
-
-<body>
+<style>
+  body {
+    background-image: url('https://images.unsplash.com/photo-1575722290270-626b0208df99?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1935&q=80');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>
+<body style="background-color: #FBFED8;">
   <nav style="background-color: #282d32;" class="navbar navbar-expand-lg">
     <div class="container-fluid">
       <a style="color: white; font-size: 30px;" class="navbar-brand" href="index.html">Vertex Events</a>
@@ -47,17 +53,21 @@
     <form class="d-flex">
       <button id="logout" class="btn btn-dark" type="button" onclick="UserService.logout()">Logout</button>
     </form>
-    <!-- <div class="card" id="user-content" style="width: 18rem;">
-      <div class="card-header">
-        User
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">Cras justo odio</li>
-        <li class="list-group-item">Dapibus ac facilisis in</li>
-        <li class="list-group-item">Vestibulum at eros</li>
-      </ul>
-    </div> -->
   </nav>
+
+  <div style="height: 480px; margin-top: 20px; background-color: #C6C7C0;
+            -moz-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
+            -webkit-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
+            box-shadow: 1px 2px 3px rgba(0,0,0,.5);
+            border-radius: 25px; padding: 20px;" class="container">
+    <a>Welcome back!</a>
+    <div class="card-image"> <img style=" display: block; margin-left: auto; margin-right: auto; width: 20%; height: 20%; border-radius: 60%;" src="https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png" alt="" srcset=""> </div>
+    <div class="card-info">
+    <h3 style="color: #ffffff;" class="eventt">` + data[i].event_name + `</h3><br>
+    <p style="color:#4EF51D; ">STATUS: ` + data[i].status + `</p>
+    <p>📍 ` + data[i].address + `</p>
+    <p>🗓️ ` + data[i].date_held + `</p>
+  </div>
   <div class="conntainer">
     <div class="container" style="margin-top: 70px; height: 80px; background-color: black; position: relative; background-color: rgba(0, 0, 0, 0.29);">
       <a style="font-size: 30px; font-weight: bold; color: white; text-align: center; justify:center; display: flex;">All reservations</a>
@@ -100,7 +110,6 @@
           contentType: "application/json",
           dataType: "json",
           success: function(data){
-            //console.log(res);
             $(".cardd-content").html("");
              var html = "";
              for (let i = 0; i < data.length; i++) {
@@ -109,15 +118,16 @@
                <div class="cardd-image"> <img src="` + data[i].image_link + `" alt="" srcset=""> </div>
                <div class="cardd-info">
                <h3 style="color: #ffffff;" class="eventt">` + data[i].event_name + `</h3><br>
+               <h6 style="color: #ffffff;" class="user">Reserved on name: ` + data[i].user_name + ` `+ data[i].surname + `</h6><br>
                <p style="color:#4EF51D; ">STATUS: ` + data[i].status + `</p>
-               <p>📍 ` + data[i].address + `</p>
-               <p>🗓️ ` + data[i].date_held + `</p>
+               <p>📍Address: ` + data[i].address + `</p>
+               <p>Reserved at: ` + data[i].date_reserved + `</p>
                <p>
-               <button style="background-color: #f23fa1;" type="button" class="btn btn-dark" onclick="showReservationModal(${data[i].event_id})">
-               View More
+               <button style="background-color: black;" type="button" class="btn btn-dark" onclick="showReservationModal(${data[i].event_id})">
+               Event Details
              </button></p>
              <p>
-             <button style="background-color: red;" type="button" class="btn btn-dark" onclick="showReservationModal(${data[i].event_id})">
+             <button style="background-color: red;" type="button" class="btn btn-dark" onclick="reviewReservation(${data[i].id})">
              Cancel reservation
            </button></p>
            </div>
@@ -129,9 +139,11 @@
           },
           error:
           function(XMLHttpRequest, textStatus, errorThrown) {
-            JSON.parse(toastr.error(XMLHttpRequest.responseJSON.message));
+            toastr.error(XMLHttpRequest.responseJSON.message);
           }
         });
+        // localStorage.setItem("reservationIdValue", data.id);
+        // console.log(localStorage.getItem('reservationIdValue'));
 
         // $.get("rest/user/reservations/" + user_id, function(data) {
         //
@@ -210,14 +222,70 @@
                 });
               }
 
+              function reviewReservation(id) {
+                //console.log(event_id);
+                var token = localStorage.getItem("token");
+                var parsed_jwt = parseJwt(token);
+                var user_id = parsed_jwt.id;
 
-              // $("#name").val(data.name);
-              // $("#description").val(data.description);
-              // $("#location").val(data.city);
-              // $("#address").val(data.address);
-              // $("#date").val(data.date_held);
-              // $("#tickets").val(data.num_of_tickets);
-              // $("#eventReservationModal").modal("show");
+                // var input_user_id = document.getElementById('user_id').value;
+                // input_user_id = user_id;
+                // var input_event_id = document.getElementById('event_id').value;
+                // input_event_id = event_id;
+                $.ajax({
+                  url: 'rest/reservation/' + id,
+                  type: "GET",
+                  beforeSend: function(xhr) {
+                    xhr.setRequestHeader('Authorization', token);
+                  },
+                  contentType: "application/json",
+                  dataType: "json",
+                  success: function(data){
+                    localStorage.setItem("reservationIdValue", data.id);
+                    var reservation_id = localStorage.getItem("reservationIdValue");
+                    console.log(reservation_id);
+                    console.log(data);
+                    // $("#status").val(data.status);
+                    // $("#dateReserved").val(data.date_reserved);
+                    $("#reservationInfoModal").modal("show");
+                  },
+                  error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    JSON.parse(toastr.error(XMLHttpRequest.responseJSON.message));
+                  }
+                });
+              }
+
+              function cancelReservation() {
+                //console.log(event_id);
+                var token = localStorage.getItem("token");
+                var parsed_jwt = parseJwt(token);
+                var user_id = parsed_jwt.id;
+                //console.log(localStorage.getItem('reservation_id'));
+                $.ajax({
+                  url: 'rest/user/delete/reservation/' + localStorage.getItem('reservationIdValue'),
+                  type: "PUT",
+                  beforeSend: function(xhr) {
+                    xhr.setRequestHeader('Authorization', token);
+                  },
+                  data: JSON.stringify({
+                    status: "CANCELLED"
+                  }),
+                  contentType: "application/json",
+                  dataType: "json",
+                  success: reservationPage(),
+                  error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    JSON.parse(toastr.error(XMLHttpRequest.responseJSON.message));
+                  }
+                });
+
+              }
+
+              function reservationPage() {
+                location.reload(true);
+                //window.location.href = "reservations.html";
+                // window.location.href = window.location.href;
+                // return false;
+              }
       </script>
     </div>
   </div>
@@ -265,9 +333,28 @@
       <p><strong>📍 Address: </strong><input id="address" type="text" disabled /></p>
       <p><strong>Number of tickets available: </strong><input id="tickets" type="text" disabled /></p>
       <p><strong>🗓️ Date: </strong><input id="date" type="text" disabled /></p>
+ <!--  onclick="showModal(${data[i].id})"  -->
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="reservationInfoModal" tabindex="-1" role="dialog" aria-labelledby="reservationInfoModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div style="background-color: #bebec2;" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reservationcancelationModalLabel" style="text-align: center; vertical-align: middle;">Reservation Cancelation</h5>
+
+      </div>
+      <p style="text-align: center; vertical-align: center;"></p>
+      <div class="modal-body">
+      </div>
+      <h2>Do you want to cancel this reservation?</h2>
+      <h7 style="color:red;">*Note that this step is not undoable.</h7>
+      <!-- <p><strong>Status: </strong><input id="status" type="text" disabled /></p>
+      <p><strong>🗓️ Date reserved: </strong><input id="dateReserved" type="text" disabled /></p> -->
       <div class="modal-footer">
-        <button type="button" style="background-color:black;" onclick="indexPage()" class="btn btn-secondary" href="index.html" data-dismiss="modal">Close</button>
-        <button type="button" style="background-color:#F51D93;" onclick="reservationPage()" class="btn btn-secondary" data-dismiss="modal">Make a reservation</button>
+        <button type="button" style="background-color:black;" onclick="reservationPage()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" style="background-color:red;" onclick="cancelReservation()" class="btn btn-secondary" data-dismiss="modal">Cancel reservation</button>
       </div> <!--  onclick="showModal(${data[i].id})"  -->
     </div>
   </div>

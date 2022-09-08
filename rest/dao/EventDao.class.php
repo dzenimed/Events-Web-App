@@ -48,6 +48,14 @@ class EventDao extends BaseDao
         return $this->query("SELECT * FROM event WHERE id = :id", ['id' => $id]);
     }
 
+    public function increase_tickets($id){
+      return $this->query("UPDATE event SET num_of_tickets = num_of_tickets + 1 WHERE id = :id", ['id'=>$id]);
+    }
+
+    public function decrease_tickets($id){
+      return $this->query("UPDATE event SET num_of_tickets = num_of_tickets - 1 WHERE id = :id", ['id'=>$id]);
+    }
+
     // public function update_event($id, $event){
     //   return $this->update($id, $event);
     // }
