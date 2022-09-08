@@ -44,6 +44,16 @@ Flight::route('GET /users/@token', function ($token) {
 });
 
 /**
+ * @OA\Get(path="/users/information/{token}", tags={"user"}, security={{"ApiKeyAuth":{}}},
+ *     @OA\Parameter(@OA\Schema(type="string"), in="path", name="token", description="Token of user"),
+ *     @OA\Response(response="200", description="Fetch individual user information")
+ * )
+ */
+Flight::route('GET /users/information/@token', function ($token) {
+    Flight::json(Flight::userService()->get_username_by_token($token));
+});
+
+/**
  * @OA\Put(path="/admin/user/{id}", tags={"x-admin", "user"}, security={{"ApiKeyAuth":{}}},
  *  @OA\Parameter(@OA\Schema(type="integer"), in="path", name="id"),
  *   @OA\RequestBody(description="Basic user info that is going to be updated", required=true,
