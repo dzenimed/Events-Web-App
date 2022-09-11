@@ -1,0 +1,22 @@
+html, body {
+  margin: 0;
+}
+.aboutus-text {
+  padding: 15px;
+  height: 100%;
+  width: 80%;
+  margin: 0 auto;
+}
+.strong {
+  margin: 20px 0px 40px 0px;
+}
+.aboutus-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 100%; */
+  margin: 3rem auto;
+}
+p {
+  margin: 40px 0px 80px 0px;
+}
