@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Vertex Events</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+  <link href="./styles.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" type="text/css">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <style>
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+
+
+<body style="background-color: #343434;">
+  <nav style="background-color: #282d32;" class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a style="position: relative; color: white; font-size: 30px;" class="navbar-brand" href="index.html">VertexEvents</a>
+    </div>
+  </nav>
+  <main>
+    <style>
+      .container {
+        position: relative;
+        background-color: rgba(0, 0, 0, 0.29);
+      }
+    </style>
+    <!-- Three columns of text below the carousel -->
+    <div class="row admin-card">
+      <h4>Admin Panel</h4>
+      <br></br>
+
+      <div class="card gradBl">
+        <h1>NUMBER OF USERS</h1>
+        <div id="number_of_users"></div>
+        <button onclick="checkActive()">Check</button>
+        <div id="number_of_activeusers" style="font-size:20px;"></div>
+      </div>
+
+      <div class="card gradGr">
+        <h1>NUMBER OF EVENTS</h1>
+        <div id="number_of_events" ></div>
+      </div>
+
+    </div>
+
+    <!-- <div >
+      <button class="addEvent" id="stavio" name="add_eventbtn" type="button" onclick="addEventModal()">Add Event</button>
+    </div> -->
+    <br><br>
+
+    <div class="list_view" style="overflow-x:auto;" class="table-content">
+      <table id="event_table">
+        <th>ID</th>
+        <th>Name</th>
+        <th>Status</th>
+        <th>City</th>
+        <th>Address</th>
+        <th>Date Held</th>
+        <th>Ticket number</th>
+        <th>Description</th>
+        <th>Alter</th>
+      </table>
+    </div>
+  </main>
+
+
+  <style>
+    .card {
+      box-sizing: border-box;
+      padding: 2em;
+      font-family: Ubuntu;
+      font-size: 26px;
+      text-align: center;
+      border-radius: 25px;
+      color: white;
+      line-height: 25px;
+      box-shadow: 5px 5px 10px #ccc;
+      float: left;
+      margin-right: 1em;
+      margin-left: 4em;
+    }
+
+    .card.purple {
+      background: linear-gradient(150deg, #f731db, #4600f1 100%);
+    }
+
+    .card.green {
+      background: linear-gradient(150deg, #39ef74, #4600f1 100%);
+    }
+
+    button {
+      text-transform: uppercase;
+      max-width: 150px;
+      min-width: 150px;
+      display: block;
+      margin: 0 auto;
+      color: #4600f1;
+      border-radius: 50px;
+      padding: 1em;
+      background: white;
+      border: none;
+      font-weight: bold;
+      margin-top: 3em;
+    }
+
+    .btn_update {
+      background-color: black;
+    }
+  </style>
+
+  <script>
+    var token = localStorage.getItem("token");
+    console.log(token);
+    if (!token) {
+      window.location.href = "index.html";
+    }
+
+    //var user_id = parsed_jwt.id;
+    var user_role = "user";
+    $.ajax({
+      url: 'rest/admin/countusers/' + user_role,
+      type: "GET",
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+      },
+      contentType: "application/json",
+      dataType: "json",
+      success: function(data) {
+        for (let i = 0; i < data.length; i++) {
+          $("#number_of_users").html(data[i].number_of_users);
+        }
+        console.log(data);
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        toastr.error(XMLHttpRequest.responseJSON.message);
+      }
+    });
+
+    var event_status = "ACTIVE";
+    $.ajax({
+      url: 'rest/admin/activeevents/' + event_status,
+      type: "GET",
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+      },
+      contentType: "application/json",
+      dataType: "json",
+      success: function(data) {
+        for (let i = 0; i < data.length; i++) {
+          $("#number_of_events").html(data[i].number_of_events);
+        }
+        console.log(data);
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        toastr.error(XMLHttpRequest.responseJSON.message);
+      }
+    });
+
+
+    $.ajax({
+      url: 'rest/events/',
+      type: "GET",
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+      },
+      contentType: "application/json",
+      dataType: "json",
+      success: function(data) {
+        data.forEach(element => {
+          var row = document.createElement("tr");
+          var id = document.createElement('td');
+          var name = document.createElement('td');
+          var status = document.createElement('td');
+          var city = document.createElement('td');
+          var address = document.createElement('td');
+          var date_held = document.createElement('td');
+          var tickets = document.createElement('td');
+          var description = document.createElement('td');
+          var button = document.createElement('button');
+
+          id.innerHTML = element.id;
+          name.innerHTML = element.name;
+          status.innerHTML = element.status;
+          city.innerHTML = element.city;
+          address.innerHTML = element.address;
+          date_held.innerHTML = element.date_held;
+          tickets.innerHTML = element.num_of_tickets;
+          description.innerHTML = element.description;
+          button.title = 'ALTER';
+          button.innerHTML = '<p style="color:white;">ALTER</p>';
+          button.addEventListener("click", clickedAlert);
+          button.className = 'btn_update';
+
+          row.appendChild(id);
+          row.appendChild(name);
+          row.appendChild(status);
+          row.appendChild(city);
+          row.appendChild(address);
+          row.appendChild(date_held);
+          row.appendChild(tickets);
+          row.appendChild(description);
+          row.appendChild(button);
+
+          // name.style.width = "20px";
+          // name.style.maxWidth = '20px';
+
+          $('#event_table').append(row);
+        });
+        console.log(data);
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        toastr.error(XMLHttpRequest.responseJSON.message);
+      }
+    });
+    function clickedAlert() {
+      $("#eventModificationModal").modal("show");
+      $('#event_table').find('tr').click(function() {
+        var row = $(this).find('td:first').text();
+        //console.log(row);
+
+        $.get('rest/event/' + row, function(data) {
+          $("#event_name").val(data.name);
+          $("#event_status").val(data.status);
+          $("#event_description").val(data.description);
+          $("#event_city").val(data.city);
+          $("#event_address").val(data.address);
+          $("#event_date_held").val(data.date_held);
+          $("#ticket_number").val(data.num_of_tickets);
+          $("#event_image").val(data.image_link);
+
+          localStorage.setItem("eventIdValue", data.id);
+        });
+      });
+    }
+    //
+    // function addEventModal(){
+    //   $("#addEventModal").modal("show");
+    //   $("#eventModificationModal").modal("hide");
+    // }
+
+    function updateEvent() {
+      //$("#addEventModal").modal("hide");
+
+      $.ajax({
+        url: 'rest/admin/update/event/' + localStorage.getItem('eventIdValue'),
+        type: "PUT",
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('Authorization', token);
+        },
+        data: JSON.stringify({
+          name: document.getElementById('event_name').value,
+          status: document.getElementById("event_status").value,
+          description: document.getElementById("event_description").value,
+          city: document.getElementById("event_city").value,
+          address: document.getElementById("event_address").value,
+          date_held: document.getElementById("event_date_held").value,
+          num_of_tickets: document.getElementById("ticket_number").value,
+          image_link: document.getElementById("event_image").value
+        }),
+        contentType: "application/json",
+        dataType: "json",
+        success: location.reload(true),
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          JSON.parse(toastr.error(XMLHttpRequest.responseJSON.message));
+        }
+      });
+    }
+
+
+    function addEvent() {
+      $.ajax({
+        url: 'rest/admin/add/event',
+        type: "POST",
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+        },
+        data: JSON.stringify({
+          name: document.getElementById('addevent_name').value,
+          status: document.getElementById("addevent_status").value,
+          description: document.getElementById("addevent_description").value,
+          city: document.getElementById("addevent_city").value,
+          address: document.getElementById("addevent_address").value,
+          date_held: document.getElementById("addevent_date_held").value,
+          num_of_tickets: document.getElementById("addticket_number").value,
+          image_link: document.getElementById("addevent_image").value
+        }),
+        contentType: "application/json",
+        dataType: "json",
+        success: console.log("success"),
+        error: console.log("error")
+        // function(XMLHttpRequest, textStatus, errorThrown) {
+        //   JSON.parse(toastr.error(XMLHttpRequest.responseJSON.message));
+        // }
+      });
+      window.location.href = "admin.html";
+    }
+
+    function deleteEvent() {
+
+    }
+
+    function closeModal() {
+      $("#eventModificationModal").modal("hide");
+    }
+
+    function checkActive() {
+      var user_status = "ACTIVE";
+      $.ajax({
+        url: 'rest/admin/countactiveusers/' + user_status,
+        type: "GET",
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+        },
+        contentType: "application/json",
+        dataType: "json",
+        success: function(data) {
+          for (let i = 0; i < data.length; i++) {
+            $("#number_of_activeusers").html(`Of which active users: ` + data[i].number_of_activeusers);
+          }
+          console.log(data);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          toastr.error(XMLHttpRequest.responseJSON.message);
+        }
+      });
+    }
+  </script>
+
+  <style media="screen">
+    table {
+      table-layout: fixed;
+      width: 100%;
+      margin: 0px auto;
+      border-collapse: collapse;
+      border: 3px solid black;
+    }
+
+    th,
+    td {
+      padding: 15px;
+    }
+
+    th {
+      letter-spacing: 2px;
+      text-align: center;
+      background-color: black;
+    }
+
+    td {
+      letter-spacing: 1px;
+      font-size: 15px;
+    }
+
+    tbody td {
+      text-align: center;
+      border: 2px solid black;
+    }
+
+    thead th {
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
+      border: 2px solid white;
+    }
+
+    tbody tr:nth-child(odd) {
+      background-color: #343434;
+      color: #fff;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #fff;
+      color: black;
+    }
+
+    table {
+      background-color: black;
+      color: white;
+    }
+
+    label {
+      font-weight: bold;
+    }
+  </style>
+
+</body>
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="js/user-service.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+<script type="text/javascript">
+  //    UserService.init();
+</script>
+
+<!-- <div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="addEventModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div style="background-color: #bebec2;" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="eventReservationModalLabel">Create an event</h5>
+      </div>
+      <p style="text-align: center;"></p>
+      <div class="modal-body">
+      </div>
+      <div class="row">
+        <form id="addevent-form">
+          <div class="mb-3">
+            <div>
+              <label class="form-label">Name:</label>
+              <input type="text" id="addevent_name" class="form-control" required>
+            </div>
+            <div>
+              <label class="form-label">Status:</label>
+              <input type="text" id="addevent_status" class="form-control" required>
+            </div>
+            <div>
+              <label class="form-label">City:</label>
+              <input type="text" id="addevent_city" class="form-control" required>
+            </div>
+            <div>
+              <label class="form-label">Address:</label>
+              <input type="text" id="addevent_address" class="form-control" required>
+            </div>
+            <div>
+              <label class="form-label">Date Held:</label>
+              <div class="modalInfo">
+                <input type="text" id="addevent_date_held" class="modal-field ticketNumber" placeholder="1" disabled />
+              </div>
+            </div>
+            <div>
+              <label class="form-label">Number of tickets:</label>
+              <input type="number" id="addticket_number" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Description:</label>
+              <input type="text" id="addevent_description" class="form-control" required>
+            </div>
+            <div>
+              <label class="form-label">Image URL:</label>
+              <input type="text" id="addevent_image" class="form-control" required>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color:black;" onclick="closeModal()" class="btn btn-secondary" href="admin.html" data-dismiss="modal">Cancel</button>
+        <button type="submit" style="background-color:#93CFE9; color:black;" onclick="addEvent()" class="btn btn-secondary" data-dismiss="modal">Add</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="modal fade" id="eventModificationModal" tabindex="-1" role="dialog" aria-labelledby="eventModificationModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div style="background-color: #bebec2;" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="eventReservationModalLabel">Make a modification to particular event</h5>
+      </div>
+      <p style="text-align: center;"></p>
+      <div class="modal-body">
+      </div>
+      <div class="row">
+        <form id="updateevent-form">
+          <div class="mb-3">
+            <div class="mb-3" style="display:none;">
+              <input type="number" id="event_id" name="event_id" class="form-control" required>
+            </div>
+            <div>
+              <label class="form-label">Name:</label>
+              <!-- <input type="text" id="event_name" class="form-control" required> -->
+              <div class="modalInfo">
+                <input type="text" name="contact_email" class="modal-field" id="event_name" required />
+              </div>
+            </div>
+            <div>
+              <label class="form-label">Status:</label>
+              <!-- <input type="text" id="event_status" class="form-control" required> -->
+              <div class="modalInfo">
+                <input type="text" name="contact_email" class="modal-field" id="event_status" required />
+              </div>
+            </div>
+            <div>
+              <label class="form-label">City:</label>
+              <!-- <input type="text" id="event_city" class="form-control" required> -->
+              <div class="modalInfo">
+                <input type="text"  class="modal-field" id="event_city" required />
+              </div>
+            </div>
+            <div>
+              <label class="form-label">Address:</label>
+              <!-- <input type="text" id="event_address" class="form-control" required> -->
+              <div class="modalInfo">
+                <input type="text"  class="modal-field" id="event_address" required />
+              </div>
+            </div>
+            <div>
+              <label class="form-label">Date Held:</label>
+              <!-- <input type="text" id="event_date_held" class="form-control" required> -->
+              <div class="modalInfo">
+                <input type="text" class="modal-field" id="event_date_held" required />
+              </div>
+            </div>
+            <div>
+              <label class="form-label">Number of tickets:</label>
+              <!-- <input type="number" id="ticket_number" class="form-control" required> -->
+              <div class="modalInfo">
+                <input type="text" name="contact_email" class="modal-field" id="ticket_number" required />
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Description:</label>
+              <!-- <input type="text" id="event_description" class="form-control" required> -->
+              <div class="modalInfo">
+                <input type="text" name="contact_email" class="modal-field" id="event_description" required />
+              </div>
+            </div>
+            <div>
+              <label class="form-label">Image URL:</label>
+              <!-- <input type="text" id="event_image" class="form-control" required> -->
+              <div class="modalInfo">
+                <input type="text" name="contact_email" class="modal-field" id="event_image" required />
+              </div>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color:black;" onclick="closeModal()" class="btn btn-secondary" href="admin.html" data-dismiss="modal">Cancel</button>
+        <button type="submit" style="background-color:#93CFE9; color:black;" onclick="updateEvent()" class="btn btn-secondary" data-dismiss="modal">Update</button>
+        <button type="submit" style="background-color:#93CFE9; color:black;" onclick="makeReservation()" class="btn btn-secondary" href="login.html" data-dismiss="modal">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</html>

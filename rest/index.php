@@ -64,9 +64,9 @@ Flight::route('/*', function(){
    if ($path == '/login' || $path == '/register' || $path == '/docs.json' || $path == '/events' || str_contains($path, '/event' ) || str_contains($path, '/events' )){
      return TRUE;
    }
-  // if ($path == '/admin/add/event'){
-  //   $decoded = (array)JWT::decode($headers['Authorization'], new Key(Config::JWT_SECRET(), 'HS256'));    '%', $id, '%'
-  //   if ($user['r'] != "ADMIN"){
+  // if (str_contains($path, '/admin' ) ){
+  //   $decoded = (array)JWT::decode($headers['Authorization'], new Key(Config::JWT_SECRET(), 'HS256'));
+  //   if ($user['r'] != "admin"){
   //       Flight::set('user', $decoded);
   //       return TRUE;
   //   }

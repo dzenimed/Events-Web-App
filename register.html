@@ -6,6 +6,8 @@
   <title>Vertex Events</title>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+  <link href="./styling.css" rel="stylesheet">
+
   <style>
     .error {
       color: red;
@@ -21,57 +23,40 @@
 </style>
 
 <body style="background-color:grey;">
-  <nav style="background-color: #282d32;" class="navbar navbar-expand-lg">
+  <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
       <a style="position: relative; color: white; font-size: 30px;" class="navbar-brand" href="index.html">VertexEvents</a>
     </div>
     </div>
   </nav>
   <main>
-    <div class="container" style="margin-top:100px;">
+    <div class="container">
       <!-- Three columns of text below the carousel -->
-      <h2>Please fill in the following information in order to create an account
-        <style>
-          h2 {
-            font-size: 22px;
-            color: white;
-            font-style: oblique;
-          }
-
-          .container {
-            position: relative;
-            background-color: rgba(0, 0, 0, 0.29);
-          }
-
-          .container:hover {
-            background-color: black;
-          }
-        </style>
-      </h2>
       <br>
       <div class="row">
+        <p>PLEASE FILL IN THE FORM:</p>
         <form id="register-form">
           <div class="mb-3">
-            <label class="form-label" style="color:white;">Username</label>
-            <input type="text" name="username" class="form-control" placeholder="Enter desired username..." required>
+            <!-- <label class="form-label" style="color:white;">Username</label> -->
+            <input type="text" name="username"  class="form-control" placeholder="Enter desired username..." required>
           </div>
           <div class="mb-3">
-            <label class="form-label" style="color:white">Name</label>
+            <!-- <label class="form-label" style="color:white">Name</label> -->
             <input type="text" name="name" class="form-control" placeholder="Enter your name..." required>
           </div>
           <div class="mb-3">
-            <label class="form-label" style="color:white">Surname</label>
+            <!-- <label class="form-label" style="color:white">Surname</label> -->
             <input type="text" name="surname" class="form-control" placeholder="Enter your surname..." required>
           </div>
           <div class="mb-3">
-            <label class="form-label" style="color:white">Email</label>
+            <!-- <label class="form-label" style="color:white">Email</label> -->
             <input type="email" name="email" class="form-control" placeholder="Enter your email..." required>
           </div>
           <div class="mb-3">
-            <label class="form-label" style="color:white">Password</label>
+            <!-- <label class="form-label" style="color:white">Password</label> -->
             <input type="password" name="password" class="form-control" placeholder="Choose a password..." required>
           </div>
-          <button style="background-color: #F51D93; position: center" type="submit" class="btn btn-dark">Register</button>
+          <button style="position: center" type="submit" class="btn btn-dark">Register</button>
         </form>
       </div>
     </div>

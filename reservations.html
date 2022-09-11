@@ -22,12 +22,14 @@
   </style>
 </head>
 <style>
-  body {
-    background-image: url('https://images.unsplash.com/photo-1575722290270-626b0208df99?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1935&q=80');
+   body {
+     background: #343434 !important;
+    /* background-image: url('https://images.unsplash.com/photo-1575722290270-626b0208df99?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1935&q=80');
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
   }
 </style>
+
 <body style="background-color: #FBFED8;">
   <nav style="background-color: #282d32;" class="navbar navbar-expand-lg">
     <div class="container-fluid">
@@ -38,7 +40,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li id="dashboard" class="nav-item">
-            <a style="margin-left: 1140px; font-size: 17px; color:white;" class="nav-link" href="index.html">Dashboard</a>
+            <a style="font-size: 17px; color:#7a7879; padding: -6px 8px; background: #fff; border-radius: 6px;" class="nav-link" href="index.html">Dashboard</a>
           </li>
         </ul>
       </div>
@@ -52,17 +54,22 @@
     </div>
   </nav>
 
+  <div class="welcome-block">
+    <a class="welcome-back">Welcome back!</a>
+  </div>
   <div id="user_container" style="height: 480px; margin-top: 20px; background-color: #C6C7C0;
             -moz-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
             -webkit-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
             box-shadow: 1px 2px 3px rgba(0,0,0,.5);
             border-radius: 25px; padding: 20px;" class="container2">
-    <a>Welcome back!</a>
 
-    <div class="card-image"> <img style=" display: block; margin-left: auto; margin-right: auto; width: 20%; height: 20%; border-radius: 60%;" src="https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png" alt="" srcset=""> </div>
+    <div class="card-image"> <img style=" display: block; margin-left: auto; margin-right: auto; width: 20%; height: 20%; border-radius: 40%" src="https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png" alt=""
+        srcset=""> </div>
 
-      <div id="try2" style="font-size:20px; color:black; font-weight:bold;">HEEEYYYYYYYYYYY</div>
-      <div id="users_name" style="font-size:20px; color:black; font-weight:bold;"></div>
+    <div id="users_name" style="font-size:20px; color:red; display: inline-block; text-align:justify;"></div>
+    <div id="users_firstname" style="font-size:20px; color:black;"></div>
+    <div id="users_surname" style="font-size:20px; color:black;"></div>
+    <div id="users_email" style="font-size:20px; color:black;"></div>
 
   </div>
   <div class="conntainer">
@@ -75,50 +82,50 @@
           <span class="sr-only">Loading...</span>
         </div>
       </div>
-        </div>
-        </div>
-      <script>
-        var token = localStorage.getItem("token");
-        console.log(token);
-         if (!token) {
-           window.location.href = "index.html";
-        //const btn = document.getElementById('logout');
-        // $('#logout').show();
-        // $('#my_events').show();
-        // $('#login_link').hide();
-        }
+    </div>
+  </div>
+  <script>
+    var token = localStorage.getItem("token");
+    console.log(token);
+    if (!token) {
+      window.location.href = "index.html";
+      //const btn = document.getElementById('logout');
+      // $('#logout').show();
+      // $('#my_events').show();
+      // $('#login_link').hide();
+    }
 
-        function parseJwt(token) {
-          var base64Url = token.split('.')[1];
-          var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-          var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-          }).join(''));
+    function parseJwt(token) {
+      var base64Url = token.split('.')[1];
+      var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
 
-          return JSON.parse(jsonPayload);
-        };
+      return JSON.parse(jsonPayload);
+    };
 
-        var token = localStorage.getItem("token");
-        var parsed_jwt = parseJwt(token);
-        var user_id = parsed_jwt.id;
-        $.ajax({
-          url: 'rest/user/reservations/'+ user_id,
-          type: "GET",
-          beforeSend: function(xhr) {
-            xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
-          },
-          contentType: "application/json",
-          dataType: "json",
-          success: function(data){
-            $(".cardd-content").html("");
-             var html = "";
-             for (let i = 0; i < data.length; i++) {
-               html += `
+    var token = localStorage.getItem("token");
+    var parsed_jwt = parseJwt(token);
+    var user_id = parsed_jwt.id;
+    $.ajax({
+      url: 'rest/user/reservations/' + user_id,
+      type: "GET",
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+      },
+      contentType: "application/json",
+      dataType: "json",
+      success: function(data) {
+        $(".cardd-content").html("");
+        var html = "";
+        for (let i = 0; i < data.length; i++) {
+          html += `
                <div class="cardd">
                <div class="cardd-image"> <img src="` + data[i].image_link + `" alt="" srcset=""> </div>
                <div class="cardd-info">
                <h3 style="color: #ffffff;" class="eventt">` + data[i].event_name + `</h3><br>
-               <h6 style="color: #ffffff;" class="user">Reserved on name: ` + data[i].user_name + ` `+ data[i].surname + `</h6><br>
+               <h6 style="color: #ffffff;" class="user">Reserved on name: ` + data[i].user_name + ` ` + data[i].surname + `</h6><br>
                <p style="color:#4EF51D; ">STATUS: ` + data[i].status + `</p>
                <p>📍Address: ` + data[i].address + `</p>
                <p>Reserved at: ` + data[i].date_reserved + `</p>
@@ -133,183 +140,123 @@
            </div>
            </div>
                `;
-             }
-             $(".cardd-content").html(html);
-             console.log(data);
-          },
-          error:
-          function(XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(XMLHttpRequest.responseJSON.message);
-          }
-        });
+        }
+        $(".cardd-content").html(html);
+        console.log(data);
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        toastr.error(XMLHttpRequest.responseJSON.message);
+      }
+    });
 
-        $.ajax({
-          url: 'rest/user/'+ user_id,
-          type: "GET",
-          beforeSend: function(xhr) {
-            xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
-          },
-          contentType: "application/json",
-          dataType: "json",
-          success: function(data){
-             // var user_html="";
-             for (let i = 0; i < data.length; i++) {
-               $("#users_name").html(data[i].username);
+    $.ajax({
+      url: 'rest/user/' + user_id,
+      type: "GET",
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+      },
+      contentType: "application/json",
+      dataType: "json",
+      success: function(data) {
+        for (let i = 0; i < data.length; i++) {
+          $("#users_name").html(`<div style="color:black; font-weight: 400; white-space: nowrap; overflow-x: auto; float:left; margin-right: 20px;">Username: </div>` + data[i].username);
+          $("#users_firstname").html(`<div style="color:black; font-weight: 400; white-space: nowrap; overflow-x: auto; float:left; margin-right: 20px;">First name: </div>` + data[i].name);
+          $("#users_surname").html(`<div style="color:black; font-weight: 400; white-space: nowrap; overflow-x: auto; float:left; margin-right: 20px;">Last name: </div>` + data[i].surname);
+          $("#users_email").html(`<div style="color:black; font-weight: 400; white-space: nowrap; overflow-x: auto; float:left; margin-right: 20px;">Email: </div>` + data[i].email);
 
-           }
-             console.log(data[0].username);
-          },
-          error:
-          function(XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(XMLHttpRequest.responseJSON.message);
-          }
-        });
-        // localStorage.setItem("reservationIdValue", data.id);
-        // console.log(localStorage.getItem('reservationIdValue'));
+        }
+        console.log(data);
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        toastr.error(XMLHttpRequest.responseJSON.message);
+      }
+    });
+    // localStorage.setItem("reservationIdValue", data.id);
+    // console.log(localStorage.getItem('reservationIdValue'));
 
-        // $.get("rest/user/reservations/" + user_id, function(data) {
-        //
-        //   $(".cardd-content").html("");
-        //
-        //   var html = "";
-        //   for (let i = 0; i < data.length; i++) {
-        //     html += `
-        //     <div class="cardd">
-        //     <div class="cardd-image"> <img src="` + data[i].image_link + `" alt="" srcset=""> </div>
-        //     <div class="cardd-info">
-        //     <h3 style="color: #ffffff;" class="eventt">` + data[i].event_name + `</h3><br>
-        //     <p style="color:#4EF51D; ">STATUS: ` + data[i].status + `</p>
-        //     <p>📍 ` + data[i].address + `</p>
-        //     <p>🗓️ ` + data[i].date_held + `</p>
-        //     <p>
-        //     <button style="background-color: #f23fa1;" type="button" class="btn btn-dark" onclick="showReservationModal(${data[i].event_id})">
-        //     View More
-        //   </button></p>
-        //   <p>
-        //   <button style="background-color: red;" type="button" class="btn btn-dark" onclick="showReservationModal(${data[i].event_id})">
-        //   Cancel reservation
-        // </button></p>
-        // </div>
-        // </div>
-        //     `;
-        //   }
-        //   $(".cardd-content").html(html);
-        //   console.log(data);
-        //   setTimeout(() => {
-        //     console.log("Wait");
-        //   }, 5000);
-        // });
+    function closeReservationModal() {
+      $("#reservationInfoModal").modal("hide");
+    }
 
+    function showReservationModal(id) {
+      $.get('rest/event/' + id, function(data) {
+        console.log(data);
+        localStorage.setItem("eventIdValue", data.id);
 
-        // $.get("rest/user/" + user_id, function(data) {
-        //
-        //       $(".cardd-content").html("");
-        //
-        //       var html = "";
-        //       for (let i = 0; i < data.length; i++) {
-        //         html += `
-        //     <div class="cardd">
-        //     <div class="cardd-image"> <img src="` + data[i].image_link + `" alt="" srcset=""> </div>
-        //     <div class="cardd-info">
-        //     <h3 style="color: #ffffff;" class="eventt">` + data[i].event_name + `</h3><br>
-        //     <p style="color:#4EF51D; ">STATUS: ` + data[i].status + `</p>
-        //     <p>📍 ` + data[i].address + `</p>
-        //     <p>🗓️ ` + data[i].date_held + `</p>
-        //     <p>
-        //     <button style="background-color: #f23fa1;" type="button" class="btn btn-dark" onclick="showReservationModal(${data[i].event_id})">
-        //     View More
-        //   </button></p>
-        //   <p>
-        //   <button style="background-color: red;" type="button" class="btn btn-dark" onclick="showReservationModal(${data[i].event_id})">
-        //   Cancel reservation
-        // </button></p>
-        // </div>
-        // </div>
-        //     `;
-        //       }
-        //       $(".cardd-content").html(html);
+        $("#name").val(data.name);
+        $("#description").val(data.description);
+        $("#location").val(data.city);
+        $("#address").val(data.address);
+        $("#date").val(data.date_held);
+        $("#tickets").val(data.num_of_tickets);
+        $("#eventReservationModal").modal("show");
+      });
+    }
 
-              function showReservationModal(id) {
-                $.get('rest/event/' + id, function(data) {
-                  console.log(data);
-                  localStorage.setItem("eventIdValue", data.id);
+    function reviewReservation(id) {
+      //console.log(event_id);
+      var token = localStorage.getItem("token");
+      var parsed_jwt = parseJwt(token);
+      var user_id = parsed_jwt.id;
 
-                  $("#name").val(data.name);
-                  $("#description").val(data.description);
-                  $("#location").val(data.city);
-                  $("#address").val(data.address);
-                  $("#date").val(data.date_held);
-                  $("#tickets").val(data.num_of_tickets);
-                  $("#eventReservationModal").modal("show");
-                });
-              }
+      // var input_user_id = document.getElementById('user_id').value;
+      // input_user_id = user_id;
+      // var input_event_id = document.getElementById('event_id').value;
+      // input_event_id = event_id;
+      $.ajax({
+        url: 'rest/reservation/' + id,
+        type: "GET",
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('Authorization', token);
+        },
+        contentType: "application/json",
+        dataType: "json",
+        success: function(data) {
+          localStorage.setItem("reservationIdValue", data.id);
+          var reservation_id = localStorage.getItem("reservationIdValue");
+          console.log(reservation_id);
+          console.log(data);
+          // $("#status").val(data.status);
+          // $("#dateReserved").val(data.date_reserved);
+          $("#reservationInfoModal").modal("show");
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          JSON.parse(toastr.error(XMLHttpRequest.responseJSON.message));
+        }
+      });
+    }
 
-              function reviewReservation(id) {
-                //console.log(event_id);
-                var token = localStorage.getItem("token");
-                var parsed_jwt = parseJwt(token);
-                var user_id = parsed_jwt.id;
+    function cancelReservation() {
+      var token = localStorage.getItem("token");
+      var parsed_jwt = parseJwt(token);
+      var user_id = parsed_jwt.id;
+      $.ajax({
+        url: 'rest/user/delete/reservation/' + localStorage.getItem('reservationIdValue'),
+        type: "PUT",
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('Authorization', token);
+        },
+        data: JSON.stringify({
+          status: "CANCELLED"
+        }),
+        contentType: "application/json",
+        dataType: "json",
+        success: reservationPage(),
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          JSON.parse(toastr.error(XMLHttpRequest.responseJSON.message));
+        }
+      });
 
-                // var input_user_id = document.getElementById('user_id').value;
-                // input_user_id = user_id;
-                // var input_event_id = document.getElementById('event_id').value;
-                // input_event_id = event_id;
-                $.ajax({
-                  url: 'rest/reservation/' + id,
-                  type: "GET",
-                  beforeSend: function(xhr) {
-                    xhr.setRequestHeader('Authorization', token);
-                  },
-                  contentType: "application/json",
-                  dataType: "json",
-                  success: function(data){
-                    localStorage.setItem("reservationIdValue", data.id);
-                    var reservation_id = localStorage.getItem("reservationIdValue");
-                    console.log(reservation_id);
-                    console.log(data);
-                    // $("#status").val(data.status);
-                    // $("#dateReserved").val(data.date_reserved);
-                    $("#reservationInfoModal").modal("show");
-                  },
-                  error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    JSON.parse(toastr.error(XMLHttpRequest.responseJSON.message));
-                  }
-                });
-              }
+    }
 
-              function cancelReservation() {
-                //console.log(event_id);
-                var token = localStorage.getItem("token");
-                var parsed_jwt = parseJwt(token);
-                var user_id = parsed_jwt.id;
-                //console.log(localStorage.getItem('reservation_id'));
-                $.ajax({
-                  url: 'rest/user/delete/reservation/' + localStorage.getItem('reservationIdValue'),
-                  type: "PUT",
-                  beforeSend: function(xhr) {
-                    xhr.setRequestHeader('Authorization', token);
-                  },
-                  data: JSON.stringify({
-                    status: "CANCELLED"
-                  }),
-                  contentType: "application/json",
-                  dataType: "json",
-                  success: reservationPage(),
-                  error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    JSON.parse(toastr.error(XMLHttpRequest.responseJSON.message));
-                  }
-                });
-
-              }
-
-              function reservationPage() {
-                location.reload(true);
-                //window.location.href = "reservations.html";
-                // window.location.href = window.location.href;
-                // return false;
-              }
-      </script>
-    </div>
+    function reservationPage() {
+      location.reload(true);
+      //window.location.href = "reservations.html";
+      // window.location.href = window.location.href;
+      // return false;
+    }
+  </script>
+  </div>
   </div>
   <!-- <main>
     <div class="container marketing" style="margin-top:100px;">
@@ -355,27 +302,23 @@
       <p><strong>📍 Address: </strong><input id="address" type="text" disabled /></p>
       <p><strong>Number of tickets available: </strong><input id="tickets" type="text" disabled /></p>
       <p><strong>🗓️ Date: </strong><input id="date" type="text" disabled /></p>
- <!--  onclick="showModal(${data[i].id})"  -->
+      <!--  onclick="showModal(${data[i].id})"  -->
     </div>
   </div>
 </div>
 
 <div class="modal fade" id="reservationInfoModal" tabindex="-1" role="dialog" aria-labelledby="reservationInfoModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog" style="margin-top: 30vh;" role="document">
     <div style="background-color: #bebec2;" class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="reservationcancelationModalLabel" style="text-align: center; vertical-align: middle;">Reservation Cancelation</h5>
-
+        <h2>Do you want to cancel this reservation?</h2>
       </div>
       <p style="text-align: center; vertical-align: center;"></p>
-      <div class="modal-body">
-      </div>
-      <h2>Do you want to cancel this reservation?</h2>
-      <h7 style="color:red;">*Note that this step is not undoable.</h7>
+      <h7 style="color:red; padding: 15px 10px 20px 10px; font-size: 20px;">*Note that this step is not undoable.</h7>
       <!-- <p><strong>Status: </strong><input id="status" type="text" disabled /></p>
       <p><strong>🗓️ Date reserved: </strong><input id="dateReserved" type="text" disabled /></p> -->
       <div class="modal-footer">
-        <button type="button" style="background-color:black;" onclick="reservationPage()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" style="background-color:black;" onclick="closeReservationModal()" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" style="background-color:red;" onclick="cancelReservation()" class="btn btn-secondary" data-dismiss="modal">Cancel reservation</button>
       </div> <!--  onclick="showModal(${data[i].id})"  -->
     </div>

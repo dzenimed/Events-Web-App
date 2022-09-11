@@ -42,4 +42,14 @@ class UserDao extends BaseDao
     {
         return $this->query("SELECT id, username, name, surname, email FROM user WHERE id = :id", ['id' => $id]);
     }
+
+    public function get_user_number($role)
+    {
+        return $this->query("SELECT COUNT(*) AS number_of_users FROM user WHERE role= :role", ['role' => $role]);
+    }
+
+    public function get_active_user_number($status)
+    {
+        return $this->query("SELECT COUNT(*) AS number_of_activeusers FROM user WHERE role='user' AND status=:status", ['status' => $status]);
+    }
 }

@@ -18,6 +18,16 @@ Flight::route('GET /events', function () {
 });
 
 /**
+ * @OA\Get(path="/admin/activeevents/{status}", tags={"x-admin", "event"}, security={{"ApiKeyAuth":{}}},
+ *     @OA\Parameter(@OA\Schema(type="string"), in="query", name="status", description="status of event", example="ACTIVE"),
+ *     @OA\Response(response="200", description="List number of active users from database")
+ * )
+ */
+Flight::route('GET /admin/activeevents/@status', function ($status) {
+  Flight::json(Flight::eventService()->get_events_number($status));
+});
+
+/**
  * @OA\Get(path="/event/{id}", tags={"event"},
  *     @OA\Parameter(@OA\Schema(type="integer"), in="path", name="id", description="Id of event"),
  *     @OA\Response(response="200", description="Fetch individual event")
@@ -37,31 +47,23 @@ Flight::route('GET /event/@city', function ($city) {
     Flight::json(Flight::eventService()->get_event_by_city($city));
 });
 
+
 /**
-* @OA\Put(
-*     path="/user/event/{id}", security={{"ApiKeyAuth": {}}},
-*     description="Update event",
-*     tags={"event"},
-*     @OA\Parameter(in="path", name="id", example=1, description="Event id"),
-*     @OA\RequestBody(description="Basic event info", required=true,
-*       @OA\MediaType(mediaType="application/json",
-*    			@OA\Schema(
-*    				@OA\Property(property="num_of_tickets", type="int", example="1",	description="Number of tickets user wants to reserve")
-*        )
-*     )),
-*     @OA\Response(
-*         response=200,
-*         description="Event that has been updated"
-*     ),
-*     @OA\Response(
-*         response=500,
-*         description="Error"
+*  @OA\Put(path="/admin/update/event/{id}", description = "Change event info.", tags={"event"}, security={{"ApiKeyAuth":{}}},
+*   @OA\RequestBody(description="Update event info", required=true,
+*     @OA\MediaType(mediaType="application/json",
+*    		@OA\Schema(
+*         @OA\Property(property="id", type="integer", example="1", description="Id of user"),
+*         @OA\Property(property="status", type="string", example="CANCELLED", description="Event status")
 *     )
-* )
-*/
-Flight::route('PUT /user/event/@id', function($id){
-  $data = Flight::request()->data->getData();
-  Flight::json(Flight::eventService()->update_event(intval($id), $data));
+*      )),
+ *    @OA\Response(
+ *       response="200",
+ *       description="Update event.")
+ * )
+ */
+Flight::route('PUT /admin/update/event/@id', function ($id) {
+    Flight::eventService()->update($id, Flight::request()->data->getData());
 });
 
 /**

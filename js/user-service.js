@@ -31,6 +31,7 @@ var UserService = {
 
   logout: function() {
     // setTimeout(()=> {window.location.reload(true); });
+    window.location.reload();
     localStorage.clear();
     const btn = document.getElementById('logout');
     btn.style.display = 'none';
@@ -39,6 +40,8 @@ var UserService = {
     my_ev.style.display = 'none';
     const login_link = document.getElementById('login_link');
     login_link.style.display = 'block';
+    const admin_link = document.getElementById('admin_pannel');
+    admin_link.style.display = 'block';
   },
 
   user_info: function() {

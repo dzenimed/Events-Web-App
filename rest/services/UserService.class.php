@@ -36,6 +36,14 @@ class UserService extends BaseService
         return $this->dao->get_user_by_token($token);
     }
 
+    public function get_user_number($role){
+        return $this->dao->get_user_number($role);
+    }
+
+    public function get_active_user_number($status){
+        return $this->dao->get_active_user_number($status);
+    }
+
     public function register($user)
     {
         try {

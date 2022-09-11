@@ -99,39 +99,18 @@ body {
   text-align: center;
   vertical-align:middle;
 }
-
+.modal {
+  --bs-modal-width: 800px;
+}
 .modal-container{
   min-width: 100%;
 }
 
-#name{
+.modal-field{
   border: none;
   width: 100%;
-}
+  padding: 5px 5px;
 
-#description{
-  border: none;
-  width: 100%;
-}
-
-#location{
-  border: none;
-  width: 100%;
-}
-
-#address{
-  border: none;
-  width: 100%;
-}
-
-#date{
-  border: none;
-  width: 100%;
-}
-
-#tickets{
-  border: none;
-  width: 100%;
 }
 
 .btn {
@@ -191,7 +170,9 @@ form {
   margin: auto;
   justify-content: center;
 }
-
+.form-control {
+  background: #fff !important;
+}
 .form-control-borderless {
   border: none;
 }
@@ -203,9 +184,75 @@ form {
 }
 
 #search {
-  width: 500px;
-  position: relative;
-  left: 100px;
+  width: 70%;
+
+}
+.admin-card {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.admin-card h4 {
+  font-size: 40px;
+  /* text-shadow: 4px 4px 2px rgba(255,255,255,0.6); */
+  font-weight: bold;
+  margin-bottom: 2vh
+}
+.gradBl {
+  background-image: linear-gradient(black, grey);
+  box-shadow: none !important;
+}
+.gradBl h1 {
+  font-size: 30px;
+  text-align: left;
+}
+#number_of_users {
+  margin-top: 20px;
+  font-size: 30px;
+  font-weight: bold;
+  text-shadow: 2px 2px 2px rgba(255,255,255,0.6);
+}
+.gradBl button {
+  padding: 10px;
+  font-size: 20px;
+  color: black;
+}
+.gradBl button:hover {
+  transform: scale(1.02);
+}
+.gradGr {
+  background-image: linear-gradient(grey, black);
+  box-shadow: none !important;
+}
+.gradGr h1 {
+  font-size: 30px;
+  text-align: left;
+}
+#number_of_users {
+  margin-top: 20px;
+  font-size: 30px;
+  font-weight: bold;
+  text-shadow: 2px 2px 2px rgba(255,255,255,0.6);
+}
+#number_of_events {
+  margin-top: 20px;
+  font-size: 30px;
+  font-weight: bold;
+  text-shadow: 2px 2px 2px rgba(255,255,255,0.6);
+}
+#number_of_activeusers {
+  margin-top: 10px;
+  font-size: 30px;
+  font-weight: bold;
+  text-shadow: 2px 2px 2px rgba(255,255,255,0.6);
+}
+.gradGr button {
+  padding: 10px;
+  font-size: 20px;
+  color: black;
+}
+.gradGr button:hover {
+  transform: scale(1.02);
 }
 /* search{
 	position: relative;
@@ -399,3 +446,92 @@ form {
   font-size:13px;
   margin-bottom:0;
 }
+.navbutton {
+  padding: 4px 8px;
+  background-color: #fff;
+  border-radius: 6px;
+}
+.collapse {
+  justify-content: end;
+  /* max-width: 100%; */
+}
+.navbar-bar {
+  /* max-width: 60%; */
+}
+.searchField {
+  display: flex;
+  flex-direction: row;
+}
+.fa-search {
+  margin: 0;
+  background-color: red;
+  padding: 10px;
+  border-bottom-left-radius: 22px;
+  border-top-left-radius: 22px;
+  background: #212529;
+  color: #fff !important;
+}
+.searchBtn {
+  width: 100px;
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+  height: unset;
+}
+.modalInfo {
+  padding: 5px 40px;
+}
+.modal-title {
+  font-size: 40px;
+}
+.modal-content {
+  min-height: 100%;
+}
+.ticketNumber {
+  background: transparent;
+}
+.ticketNumber::placeholder {
+  color: black !important;
+  font-size: 20px;
+  font-weight: bold;
+}
+#reservationsEmail {
+  background-color: #EFEFEF4D !important;
+}
+#user_container {
+  margin: 0px 40px;
+}
+.welcome-block {
+  width: 100%;
+  text-align: center;
+  }
+.welcome-back {
+  font-size: 45px;
+  text-decoration: none;
+  color: #fff;
+  width: 100%;
+  font-weight: bolder;
+  text-shadow: 4px 4px 2px rgba(255,255,255,0.6);
+}
+.addEvent {
+  padding: 10px;
+  font-size: 18px;
+  color: black;
+}
+tbody > tr:nth-child(9) {
+  width: 200px !important;
+}
+
+tr > .btn_update {
+  max-width: auto;
+  min-width: auto;
+  padding: 10px 24px !important;
+}
+.btn_update p {
+  margin: 0;
+}
+.addEventBtn {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0px;
+}
+/*admin*/

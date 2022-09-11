@@ -11,7 +11,7 @@
   <title>Vertex Events</title>
   <link rel="stylesheet" href="styles.css">
   <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="./styling.css" rel="stylesheet">
+  <link href="./styles.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <style>
     .error {
@@ -41,10 +41,13 @@
             <a class="nav-link active" aria-current="page" href="#">Events</a>
           </li> -->
           <li id="my_events" style="display:none;" class="nav-item">
-            <a style="margin-left: 1160px; font-size: 17px; color:#7a7879;" class="nav-link" href="reservations.html">My Events</a>
+            <a style="font-size: 17px; color:#7a7879; padding: 6px 8px; background: #fff; border-radius: 6px; margin-right: auto;" class="nav-link" href="reservations.html">My Events</a>
+          </li>
+          <li id="admin_pannel" style="display:none;" class="nav-item">
+            <a style=" font-size: 17px; color:#7a7879; padding: 6px 8px; background: #fff; border-radius: 6px; margin-right: auto;" class="nav-link" href="admin.html">Admin Panel</a>
           </li>
           <li id="login_link" style="display:show;" class="nav-item">
-            <a style="margin-left: 1240px; font-size: 17px; color:white;" class="nav-link" href="login.html">Login</a>
+            <a style="font-size: 17px; color:#7a7879; padding: 4px 8px; background: #fff; border-radius: 6px; margin-right: auto;" class="nav-link" href="login.html">Login</a>
           </li>
         </ul>
       </div>
@@ -57,7 +60,7 @@
 
     </div>
     <form class="d-flex">
-      <button id="logout" class="btn btn-dark" type="button" onclick="UserService.logout()" style="display:none;">Logout</button>
+      <button id="logout" class="btn btn-light" type="button" onclick="UserService.logout()" style="font-size: 17px; color:#7a7879; padding: -6px 8px; background: #fff; border-radius: 6px; display:none;">Logout</button>
     </form>
     </div>
   </nav>
@@ -68,25 +71,24 @@
       <div class="col-12 col-md-10 col-lg-8 ">
 
         <div class="card-body row no-gutters align-items-center">
-          <div class="col-auto">
-            <i style="position: relative; left: 110px; top:4px;" class="fas fa-search h4 text-body"></i>
-          </div>
-          <!--end of col-->
-          <div class="col">
 
+          <!--end of col-->
+          <div class="searchField">
+<i class="fas fa-search h4 text-body"></i>
             <input type="search" name="search" placeholder="Search..." id="search">
             <!-- <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search"> -->
-
+<button class="btn btn-dark searchBtn" onclick="searchEvent()">Search</button>
           </div>
           <!--end of col-->
-          <div class="col-auto">
-            <button style="position: relative; left: -120px;" class="btn btn-dark" onclick="searchEvent()">Search</button>
-          </div>
+
           <!--end of col-->
         </div>
 
       </div>
       <!--end of col-->
+    </div>
+    <div class="addEventBtn">
+      <button class="addEvent" id="add_admin_event_btn" name="add_eventbtn" type="button" onclick="addEventModal()" style="font-size: 17px; color:#7a7879; padding: -6px 8px; background: #fff; border-radius: 6px;  display:none;">Add Event</button>
     </div>
   </div>
 
@@ -101,11 +103,29 @@
       <script>
         var token = localStorage.getItem("token");
         if (token) {
+          var parsed_jwt = parseJwt(token);
+          var role = parsed_jwt.r;
           //const btn = document.getElementById('logout');
-          $('#logout').show();
-          $('#my_events').show();
-          $('#login_link').hide();
+          // $('#logout').show();
+          // $('#my_events').show();
+          // $('#login_link').hide();
+
+          if(role === 'admin'){
+          //  var btn = document.getElementById('add_admin_event_btn');
+            $('#add_admin_event_btn').show();
+            $('#admin_pannel').show();
+            $('#my_events').hide();
+            $('#logout').show();
+            $('#login_link').hide();
+          }
+          if(role === 'user'){
+            $('#admin_pannel').hide();
+            $('#my_events').show();
+            $('#logout').show();
+              $('#login_link').hide();
+          }
         }
+
 
         $.get("rest/events", function(data) {
 
@@ -316,7 +336,6 @@
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/jquery.validate.min.js"></script>
 <script src="js/user-service.js"></script>
-<script src="js/events-service.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
@@ -347,22 +366,45 @@
             var token = localStorage.getItem("token");
             if (token) {
               $("#eventReservationModal").modal("show");
+              $("#eventModal").modal("hide");
 
               //  window.location.href = "reservations.html";
             } else {
               window.location.href = "login.html";
             }
           }
+
+          function closeViewMore() {
+            $("#eventReservationModal").modal("hide");
+            $("#eventModal").modal("hide");
+
+          }
+
+          function addEventModal(){
+            $("#addEventModal").modal("show");
+          }
         </script>
       </div>
-      <p><strong>Name: </strong><input id="name" type="text" disabled /></p>
-      <p><strong>Description: </strong><input id="description" type="text" disabled /></p>
-      <p><strong>📍 City: </strong><input id="location" type="text" disabled /></p>
-      <p><strong>📍 Address: </strong><input id="address" type="text" disabled /></p>
-      <p><strong>Number of tickets available: </strong><input id="tickets" type="text" disabled /></p>
-      <p><strong>🗓️ Date: </strong><input id="date" type="text" disabled /></p>
+      <p class="modal-info"><strong>Name: </strong><div class="modalInfo">
+        <input id="name" class="modal-field" type="text" disabled />
+      </div> </p>
+      <p class="modal-info"><strong>Description: </strong><div class="modalInfo">
+        <input id="description" class="modal-field" type="text" disabled />
+      </div> </p>
+      <p class="modal-info"><strong>📍 City: </strong><div class="modalInfo">
+        <input id="location" class="modal-field" type="text" disabled />
+      </div> </p>
+      <p class="modal-info"><strong>📍 Address: </strong><div class="modalInfo">
+        <input id="address" class="modal-field" type="text" disabled />
+      </div> </p>
+      <p class="modal-info"><strong>Number of tickets available: </strong><div class="modalInfo">
+        <input id="tickets" class="modal-field" type="text" disabled />
+      </div> </p>
+      <p class="modal-info"><strong>🗓️ Date: </strong><div class="modalInfo">
+        <input id="date" type="text" class="modal-field" disabled />
+      </div> </p>
       <div class="modal-footer">
-        <button type="button" style="background-color:black;" onclick="indexPage()" class="btn btn-secondary" href="index.html" data-dismiss="modal">Close</button>
+        <button type="button" style="background-color:black;" onclick="closeViewMore()" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" style="background-color:#93CFE9; color:black;" onclick="reservationPage()" class="btn btn-secondary" data-dismiss="modal">Make a reservation</button>
       </div> <!--  onclick="showModal(${data[i].id})"  -->
     </div>
@@ -372,7 +414,7 @@
 
 <div class="modal fade" id="eventReservationModal" tabindex="-1" role="dialog" aria-labelledby="eventReservationModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div style="background-color: white;" class="modal-content">
+    <div style="background-color: darkgrey;" class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="eventReservationModalLabel">Make a reservation for the event</h5>
       </div>
@@ -383,11 +425,15 @@
         <form id="reservation-form">
           <div class="mb-3">
             <label class="form-label">Number of tickets:</label>
-            <input type="number" name="ticket_number" class="form-control" placeholder="1" min="1" max="1" required>
+            <div class="modalInfo">
+              <input type="number" name="ticket_number" class="modal-field ticketNumber" placeholder="1" disabled />
+            </div>
           </div>
           <div class="mb-3">
             <label class="form-label">Email:</label>
-            <input type="email" name="contact_email" class="form-control" placeholder="somename@example.com" required>
+            <div class="modalInfo">
+              <input type="email" name="contact_email" class="modal-field" id="reservationsEmail" placeholder="somename@example.com" required />
+            </div>
           </div>
           <div class="mb-3" style="display:none;">
             <input type="number" id="user_id" name="user_id" class="form-control" required>
@@ -398,7 +444,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" style="background-color:black;" onclick="indexPage()" class="btn btn-secondary" href="index.html" data-dismiss="modal">Cancel</button>
+        <button type="button" style="background-color:black;" onclick="closeViewMore()" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         <button type="submit" style="background-color:#93CFE9; color:black;" onclick="makeReservation()" class="btn btn-secondary" href="login.html" data-dismiss="modal">Reserve</button>
       </div>
     </div>
@@ -432,14 +478,68 @@
             <p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>
           </div>
           <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i
-                class="icon ion-social-instagram"></i></a></div>
+            class="icon ion-social-instagram"></i></a></div>
+          </div>
+          <p class="copyright">Vertex Events © 2022</p>
         </div>
-        <p class="copyright">Vertex Events © 2022</p>
-      </div>
-    </footer>
-  </div>
+      </footer>
+    </div>
 
-</footer>
+  </footer>
+<div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="addEventModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div style="background-color: #bebec2;" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="eventReservationModalLabel">Create an event</h5>
+      </div>
+      <p style="text-align: center;"></p>
+      <div class="modal-body">
+      </div>
+      <div class="row">
+        <form id="addevent-form">
+          <div class="mb-3">
+            <div class="modalInfo">
+              <label class="form-label">Name:</label>
+              <input type="text" id="addevent_name" class="form-control" required>
+            </div>
+            <div class="modalInfo">
+              <label class="form-label">Status:</label>
+              <input type="text" id="addevent_status" class="form-control" required>
+            </div>
+            <div class="modalInfo">
+              <label class="form-label">City:</label>
+              <input type="text" id="addevent_city" class="form-control" required>
+            </div>
+            <div class="modalInfo">
+              <label class="form-label">Address:</label>
+              <input type="text" id="addevent_address" class="form-control" required>
+            </div>
+            <div class="modalInfo">
+              <label class="form-label">Date Held:</label>
+                <input type="text" id="addevent_date_held" class="form-control ticketNumber" required/>
+            </div>
+            <div class="modalInfo">
+              <label class="form-label">Number of tickets:</label>
+              <input type="number" id="addticket_number" class="form-control" required>
+            </div>
+            <div class="modalInfo">
+              <label class="form-label">Description:</label>
+              <input type="text" id="addevent_description" class="form-control" required>
+            </div>
+            <div class="modalInfo">
+              <label class="form-label">Image URL:</label>
+              <input type="text" id="addevent_image" class="form-control" required>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="background-color:black; width: 70%; margin: 20px auto; box-shadow: 1px 1px 12px black;" onclick="closeModal()" class="btn btn-secondary" href="admin.html" data-dismiss="modal">Cancel</button>
+        <button type="submit" style="background-color:#93CFE9; color:black; width: 70%; margin: 0 auto; box-shadow: 2px 2px 12px black;" onclick="addEvent()" class="btn btn-secondary" data-dismiss="modal">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 </html>

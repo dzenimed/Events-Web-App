@@ -11,15 +11,33 @@
  */
 Flight::route('GET /admin/users', function () {
     $offset = Flight::query('offset', 0);
-    $limit = Flight::query('limit', 25);
+    $limit = Flight::query('limit', 6);
     $search = Flight::query('search');
     $order = Flight::query('order', "-id");
 
     Flight::json(Flight::userService()->get_user($search, $offset, $limit, $order));
 });
 
+/**
+ * @OA\Get(path="/admin/countusers/{role}", tags={"x-admin", "user"}, security={{"ApiKeyAuth":{}}},
+ *     @OA\Parameter(@OA\Schema(type="string"), in="query", name="role", description="status of event", example="user"),
+ *     @OA\Response(response="200", description="List number of users from database")
+ * )
+ */
+Flight::route('GET /admin/countusers/@role', function ($role) {
+  Flight::json(Flight::userService()->get_user_number($role));
+});
 
-//check out
+/**
+ * @OA\Get(path="/admin/countusers/{status}", tags={"x-admin", "user"}, security={{"ApiKeyAuth":{}}},
+ *     @OA\Parameter(@OA\Schema(type="string"), in="query", name="status", description="status of user", example="ACTIVE"),
+ *     @OA\Response(response="200", description="List number of active users from database")
+ * )
+ */
+Flight::route('GET /admin/countactiveusers/@status', function ($status) {
+  Flight::json(Flight::userService()->get_active_user_number($status));
+});
+
 /**
  * @OA\Get(path="/user/{id}", tags={"user"}, security={{"ApiKeyAuth":{}}},
  *     @OA\Parameter(@OA\Schema(type="integer"), in="path", name="id", description="Id of user"),

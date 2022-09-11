@@ -41,6 +41,9 @@ class EventService extends BaseService
         return $this->dao->get_event_by_id($id);
     }
 
+    public function get_events_number($status){
+        return $this->dao->get_events_number($status);
+    }
 
     public function add_event($event)
     {

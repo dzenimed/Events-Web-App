@@ -56,6 +56,11 @@ class EventDao extends BaseDao
       return $this->query("UPDATE event SET num_of_tickets = num_of_tickets - 1 WHERE id = :id", ['id'=>$id]);
     }
 
+    public function get_events_number($status)
+    {
+        return $this->query("SELECT COUNT(*) AS number_of_events FROM event WHERE status=:status", ['status' => $status]);
+    }
+
     // public function update_event($id, $event){
     //   return $this->update($id, $event);
     // }
