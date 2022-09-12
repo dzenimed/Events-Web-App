@@ -366,7 +366,7 @@ form {
 }
 
 .footer-dark p {
-  color: white !important;
+  color: white;
 }
 
 .footer-dark ul {
@@ -512,6 +512,12 @@ form {
   font-weight: bolder;
 }
 .addEvent {
+  padding: 10px;
+  font-size: 18px;
+  color: black;
+}
+
+.nextPage{
   padding: 10px;
   font-size: 18px;
   color: black;

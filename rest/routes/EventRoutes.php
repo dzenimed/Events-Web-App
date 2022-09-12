@@ -53,7 +53,7 @@ Flight::route('GET /event/@city', function ($city) {
 *   @OA\RequestBody(description="Update event info", required=true,
 *     @OA\MediaType(mediaType="application/json",
 *    		@OA\Schema(
-*         @OA\Property(property="id", type="integer", example="1", description="Id of user"),
+*         @OA\Property(property="id", type="integer", example="1", description="Id of event"),
 *         @OA\Property(property="status", type="string", example="CANCELLED", description="Event status")
 *     )
 *      )),
@@ -90,4 +90,23 @@ Flight::route('PUT /admin/update/event/@id', function ($id) {
 Flight::route('POST /admin/add/event', function () {
     $data = Flight::request()->data->getData();
     Flight::json(Flight::eventService()->add_event($data));
+});
+
+
+/**
+*  @OA\DELETE(path="/admin/delete/event/{id}", description = "Change event info.", tags={"event"}, security={{"ApiKeyAuth":{}}},
+*   @OA\RequestBody(description="Update event info", required=true,
+*     @OA\MediaType(mediaType="application/json",
+*    		@OA\Schema(
+*         @OA\Property(property="id", type="integer", example="1", description="Id of event")
+*     )
+*      )),
+ *    @OA\Response(
+ *       response="200",
+ *       description="Delete event.")
+ * )
+ */
+Flight::route('DELETE /admin/delete/event/@id', function($id){
+  Flight::eventService()->delete($id);
+  Flight::json(["message" => "deleted"]);
 });

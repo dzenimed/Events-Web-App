@@ -13,7 +13,7 @@ class EventDao extends BaseDao
       list($order_column, $order_direction) = self::parse_order($order);
       $params = [];
       $query = "SELECT * FROM event
-                WHERE 1 = 1 ";
+                WHERE 1=1 ";
       if (isset($search)){
         $query .= "AND ( LOWER(name) LIKE CONCAT('%', :search, '%') OR LOWER(description) LIKE CONCAT('%', :search, '%'))";
         $params['search'] = strtolower($search);
@@ -25,6 +25,8 @@ class EventDao extends BaseDao
         $query .="LIMIT ${limit} OFFSET ${offset}";
         return $this->query($query, $params);
     }
+
+
     public function get_event($search, $offset, $limit, $order= '-id')
     {
         list($order_column, $order_direction) = self::parse_order($order);
@@ -53,7 +55,7 @@ class EventDao extends BaseDao
     }
 
     public function decrease_tickets($id){
-      return $this->query("UPDATE event SET num_of_tickets = num_of_tickets - 1 WHERE id = :id", ['id'=>$id]);
+      return $this->query("UPDATE event SET num_of_tickets = num_of_tickets - 1 WHERE id = :id AND status != \'CANCELED\'", ['id'=>$id]);
     }
 
     public function get_events_number($status)

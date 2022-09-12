@@ -14,6 +14,7 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="./styles.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
   <style>
     .error {
       color: red;
@@ -94,6 +95,7 @@
   </div>
 
 
+
   <div class="conntainer">
     <div id="card-content" class="cardd-content" style="display: none;">
       <div class="d-flex justify-content-center">
@@ -150,10 +152,6 @@
             `;
           }
           $(".cardd-content").html(html);
-          console.log(data);
-          setTimeout(() => {
-            console.log("Wait");
-          }, 5000);
         });
 
 
@@ -190,16 +188,102 @@
           $.get('rest/event/' + id, function(data) {
             console.log(data);
             localStorage.setItem("eventIdValue", data.id);
+            localStorage.setItem("statusValue", data.status);
+            var status_of_event = localStorage.getItem("statusValue");
+            console.log(status_of_event);
 
             $("#name").val(data.name);
             $("#description").val(data.description);
             $("#location").val(data.city);
             $("#address").val(data.address);
             $("#date").val(data.date_held);
+            $("#status").val(data.status);
             $("#tickets").val(data.num_of_tickets);
             $("#eventModal").modal("show");
+
+            if(status_of_event === 'CANCELED'){
+              document.getElementById('reservebtn').style.visibility = 'hidden';
+              alert("This event has been canceled. You cannot make a reservation for it.");
+            }
           });
         }
+
+        function getNextSix(){
+          $.ajax({
+            url: 'rest/events?offset=6&limit=12',
+            type: "GET",
+            beforeSend: function(xhr) {
+              xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+            },
+            contentType: "application/json",
+            dataType: "json",
+            success: function(data) {
+              $(".cardd-content").html("");
+              var html = "";
+              for (let i = 0; i < data.length; i++) {
+                html += `
+                <div class="cardd">
+                <div class="cardd-image"> <img src="` + data[i].image_link + `" alt="" srcset=""> </div>
+                <div class="cardd-info">
+                <h3 style="color: #ffffff;" class="eventt">` + data[i].name + `</h3><br>
+                <p>📍 ` + data[i].city + `</p>
+                <p>🗓️ ` + data[i].date_held + `</p>
+                <p>
+                <button id="viewmorebtn" style="background-color: #93CFE9; color:black;" type="button" class="btn btn-dark" onclick="showModal(${data[i].id})">
+                View More
+              </button></p>
+            </div>
+        </div>
+                     `;
+                     document.getElementById('nextPage_btn').display = 'none';
+              }
+              $(".cardd-content").html(html);
+              console.log(data);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+              toastr.error(XMLHttpRequest.responseJSON.message);
+            }
+          });
+        }
+
+        function getPrevSix(){
+          $.ajax({
+            url: 'rest/events?offset=0&limit=6',
+            type: "GET",
+            beforeSend: function(xhr) {
+              xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+            },
+            contentType: "application/json",
+            dataType: "json",
+            success: function(data) {
+              $(".cardd-content").html("");
+              var html = "";
+              for (let i = 0; i < data.length; i++) {
+                html += `
+                <div class="cardd">
+                <div class="cardd-image"> <img src="` + data[i].image_link + `" alt="" srcset=""> </div>
+                <div class="cardd-info">
+                <h3 style="color: #ffffff;" class="eventt">` + data[i].name + `</h3><br>
+                <p>📍 ` + data[i].city + `</p>
+                <p>🗓️ ` + data[i].date_held + `</p>
+                <p>
+                <button id="viewmorebtn" style="background-color: #93CFE9; color:black;" type="button" class="btn btn-dark" onclick="showModal(${data[i].id})">
+                View More
+              </button></p>
+            </div>
+        </div>
+                     `;
+                     document.getElementById('prevPage_btn').display = 'none';
+              }
+              $(".cardd-content").html(html);
+              console.log(data);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+              toastr.error(XMLHttpRequest.responseJSON.message);
+            }
+          });
+        }
+
 
         function parseJwt(token) {
           var base64Url = token.split('.')[1];
@@ -217,14 +301,11 @@
           var token = localStorage.getItem("token");
           var parsed_jwt = parseJwt(token);
           var user_id = parsed_jwt.id;
-          //console.log(user_id); //user id
 
           var input_user_id = document.getElementById('user_id').value;
           input_user_id = user_id;
           var input_event_id = document.getElementById('event_id').value;
           input_event_id = event_id;
-          // console.log(input_event_id);
-          // console.log(input_user_id);
           $.ajax({
             url: 'rest/user/add/reservation',
             type: "POST",
@@ -290,7 +371,7 @@
 
     $(function() {
       var numberOfItems = $(".cardd-content .cardd").length;
-      var limitPerPage = 3;
+      var limitPerPage = 6;
       var totalPages = Math.ceil(numberOfItems / limitPerPage);
       var paginationSize = 7;
       var currentPage;
@@ -313,23 +394,55 @@
         $(".next-page").toggleClass("disable", currentPage === totalPages);
         return true;
       }
-      $(".pagination").append(
-        $("<li>").addClass("page-item").addClass("previous-page").append($("<a>").addClass("page-link").attr({
-          href: "javascript:void(0)"
-        }).text("Prev")),
-        $("<li>").addClass("page-item").addClass("next-page").append($("<a>").addClass("page-link").attr({
-          href: "javascript:void(0)"
-        }).text("Next")),
-
-      );
+      // $(".pagination").append(
+      //   $("<li>").addClass("page-item").addClass("previous-page").append($("<a>").addClass("page-link").attr({
+      //     href: "javascript:void(0)"
+      //   }).text("Prev")),
+      //   $("<li>").addClass("page-item").addClass("next-page").append($("<a>").addClass("page-link").attr({
+      //     href: "javascript:void(0)"
+      //   }).text("Next")),
+      //
+      // );
       $(".cardd-content").show();
       showPage(1);
       $(document).on("click", ".pagination li.current-page:not(.activee)", function() {
         return showPage(+$(this).text());
       })
     });
-  </script>
 
+    function addEvent() {
+      $.ajax({
+        url: 'rest/admin/add/event',
+        type: "POST",
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+        },
+        data: JSON.stringify({
+          name: document.getElementById('addevent_name').value,
+          status: document.getElementById("addevent_status").value,
+          description: document.getElementById("addevent_description").value,
+          city: document.getElementById("addevent_city").value,
+          address: document.getElementById("addevent_address").value,
+          date_held: document.getElementById("addevent_date_held").value,
+          num_of_tickets: document.getElementById("addticket_number").value,
+          image_link: document.getElementById("addevent_image").value,
+          type_name: document.getElementById("addevent_type").value,
+          company_name: document.getElementById("addevent_company").value
+        }),
+        contentType: "application/json",
+        dataType: "json",
+        success: console.log("success"),
+        error: console.log("error")
+      });
+      window.location.href = "index.html";
+    }
+  </script>
+  <div class="nextPage" style="text-align: center; position: relative; bottom: 0; display:flex; flex-direction:row; justify-content:center;">
+      <button class="previous-page-btn" id="prevPage_btn" name="nxtpagebtn" type="button" onclick="getPrevSix()" style="font-size: 17px; color:#7a7879; padding: 10px 10px; background: #fff; border-radius: 8px; vertical-align: bottom;">Previous</button>
+    <button class="next-page-btn" id="nextPage_btn" name="nxtpagebtn" type="button" onclick="getNextSix()" style="font-size: 16px; color:#7a7879; padding: 10px 15px; background: #fff; border-radius: 8px; vertical-align: bottom;">Next</button>
+  </div>
+
+</div>
 </body>
 
 
@@ -401,6 +514,9 @@
       <p class="modal-info"><strong>Number of tickets available: </strong><div class="modalInfo">
         <input id="tickets" class="modal-field" type="text" disabled />
       </div> </p>
+      <p class="modal-info"><strong>Status: </strong><div class="modalInfo">
+        <input id="status" class="modal-field" type="text" disabled />
+      </div> </p>
       <p class="modal-info"><strong>🗓️ Date: </strong><div class="modalInfo">
         <input id="date" type="text" class="modal-field" disabled />
       </div> </p>
@@ -446,7 +562,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" style="background-color:black;" onclick="closeViewMore()" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="submit" style="background-color:#93CFE9; color:black;" onclick="makeReservation()" class="btn btn-secondary" href="login.html" data-dismiss="modal">Reserve</button>
+        <button id="reservebtn" type="submit" style="background-color:#93CFE9; color:black;" onclick="makeReservation()" class="btn btn-secondary" href="login.html" data-dismiss="modal">Reserve</button>
       </div>
     </div>
   </div>
@@ -459,19 +575,21 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-6 col-md-3 item">
-            <a href="aboutUs.html" style="text-decoration: none; color: #F51D93; font-weight: bold;">About Us</a>
-            <!-- <ul>
-              <li><a href="#">Company</a></li>
-              <li><a href="#">Team</a></li>
-              <li><a href="#">Careers</a></li>
-            </ul> -->
+            <a style="text-decoration: none; color: #F51D93; font-weight: bold;">About Us</a>
+             <ul>
+              <a href="aboutUs.html">Click to find out more!</a>
+            </ul>
           </div>
           <div class="col-md-6 item text">
             <h3>Vertex Events</h3>
-            <p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>
+            <p>Vertex Events was created as a senior design project by Dzenana Mededovic. Its intention is to showcase all the knowledge gained from the devlopers student years at International Burch University.</p>
           </div>
-          <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i
-            class="icon ion-social-instagram"></i></a></div>
+          <div class="col item social">
+            <a href="https://hr-hr.facebook.com/pages/category/Interest/Grad-Sarajevo-209468992409465/"><i class="icon ion-social-facebook"></i></a>
+            <a href="#"><i class="icon ion-social-twitter"></i></a>
+            <a href="#"><i class="icon ion-social-snapchat"></i></a>
+            <a href="#"><i class="icon ion-social-instagram"></i></a>
+          </div>
           </div>
           <p class="copyright">Vertex Events © 2022</p>
         </div>
@@ -509,7 +627,7 @@
             </div>
             <div class="modalInfo">
               <label class="form-label">Date Held:</label>
-                <input type="text" id="addevent_date_held" class="form-control ticketNumber" required/>
+                <input type="text" id="addevent_date_held" class="form-control" required/>
             </div>
             <div class="modalInfo">
               <label class="form-label">Number of tickets:</label>
@@ -522,6 +640,14 @@
             <div class="modalInfo">
               <label class="form-label">Image URL:</label>
               <input type="text" id="addevent_image" class="form-control" required>
+            </div>
+            <div class="modalInfo">
+              <label class="form-label">Type Name:</label>
+              <input type="text" id="addevent_type" class="form-control" required>
+            </div>
+            <div class="modalInfo">
+              <label class="form-label">Company Nmae:</label>
+              <input type="text" id="addevent_company" class="form-control" required>
             </div>
         </form>
       </div>

@@ -104,6 +104,12 @@ class BaseDao
         $this->executeUpdate($this->table, $id, $entity);
     }
 
+    public function delete($id){
+      $query = "DELETE FROM ".$this->table_name." WHERE id=:id";
+      $stmt->bindParam(':id', $id); // SQL injection prevention
+      $stmt->execute();
+    }
+
     public function get_by_id($id)
     {
         return $this->query_unique("SELECT * FROM ".$this->table." WHERE id=:id", ["id" => $id]);

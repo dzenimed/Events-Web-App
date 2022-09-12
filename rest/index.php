@@ -67,7 +67,7 @@ Flight::route('/*', function(){
   // if (str_contains($path, '/admin' ) ){
   //   $decoded = (array)JWT::decode($headers['Authorization'], new Key(Config::JWT_SECRET(), 'HS256'));
   //   if ($user['r'] != "admin"){
-  //       Flight::set('user', $decoded);
+  //       Flight::set('admin', $decoded);
   //       return TRUE;
   //   }
   // }
