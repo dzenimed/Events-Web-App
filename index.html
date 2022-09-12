@@ -204,6 +204,8 @@
             if(status_of_event === 'CANCELED'){
               document.getElementById('reservebtn').style.visibility = 'hidden';
               alert("This event has been canceled. You cannot make a reservation for it.");
+            }else{
+              document.getElementById('reservebtn').style.visibility = 'visible';
             }
           });
         }
