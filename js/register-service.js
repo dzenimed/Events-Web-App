@@ -19,6 +19,7 @@ var RegisterService = {
       contentType: "application/json",
       dataType: "json",
       success: function(result) {
+
         console.log(result);
         alert("Confirmation email has been sent out.");
         localStorage.setItem("token", result.token);

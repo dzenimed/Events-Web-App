@@ -61,7 +61,7 @@ Flight::map('jwt', function ($user) {
 Flight::route('/*', function(){
  //perform JWT decode
    $path = Flight::request()->url;
-   if ($path == '/login' || $path == '/register' || $path == '/docs.json' || $path == '/events' || str_contains($path, '/event' ) || str_contains($path, '/events' )){
+   if ($path == '/login' || $path == '/register' || $path == '/docs.json' || $path == '/events' || str_contains($path, '/event' ) || str_contains($path, '/events' ) || str_contains($path, '/confirm' )){
      return TRUE;
    }
   // if (str_contains($path, '/admin' ) ){

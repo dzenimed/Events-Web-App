@@ -9,15 +9,26 @@ class Config {
   const DB_PASSWORD = "7cbaabfe";
   const DB_SCHEME = "heroku_2b4de0c466ea2ca";
 
-  public const SMTP_HOST = "smtp.sendgrid.net";
-  public const SMTP_PORT = 587;
-  public const SMTP_USER = "#";
-  public const SMTP_PASSWORD = "#";
-
   public static function JWT_SECRET()
   {
       return Config::get_env("JWT_SECRET", "y4KvQcZVqn3F7uxQvcFk");
   }
+
+  public static function SMTP_HOST(){
+  return Config::get_env("SMTP_HOST", "smtp.sendgrid.net");
+}
+
+public static function SMTP_PORT(){
+  return Config::get_env("SMTP_PORT", "587");
+}
+
+  public static function SMTP_USER(){
+  return Config::get_env("SMTP_USER", NULL);
+}
+
+public static function SMTP_PASSWORD(){
+  return Config::get_env("SMTP_PASSWORD", NULL);
+}
 
   // environment servers setup
   public static function ENVIRONMENT_SERVER()
@@ -35,8 +46,4 @@ class Config {
   }
 }
 
-  // const DB_HOST = "localhost";
-  // const DB_USERNAME = "events";
-  // const DB_PASSWORD = "events123";
-  // const DB_SCHEME = "events_db";
 ?>
