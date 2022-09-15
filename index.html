@@ -503,6 +503,9 @@
             $("#eventModal").modal("hide");
 
           }
+          function closeModal(){
+              $("#addEventModal").modal("hide");
+          }
 
           function addEventModal(){
             $("#addEventModal").modal("show");
@@ -662,7 +665,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" style="background-color:black; width: 70%; margin: 20px auto; box-shadow: 1px 1px 12px black;" onclick="closeModal()" class="btn btn-secondary" href="admin.html" data-dismiss="modal">Cancel</button>
+        <button type="button" style="background-color:black; width: 70%; margin: 20px auto; box-shadow: 1px 1px 12px black;" onclick="closeModal()" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         <button type="submit" style="background-color:#93CFE9; color:black; width: 70%; margin: 0 auto; box-shadow: 2px 2px 12px black;" onclick="addEvent()" class="btn btn-secondary" data-dismiss="modal">Add</button>
       </div>
     </div>

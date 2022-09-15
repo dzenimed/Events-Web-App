@@ -55,7 +55,7 @@ class EventDao extends BaseDao
     }
 
     public function decrease_tickets($id){
-      return $this->query("UPDATE event SET num_of_tickets = num_of_tickets - 1 WHERE id = :id AND status != \'CANCELED\'", ['id'=>$id]);
+      return $this->query("UPDATE event SET num_of_tickets = num_of_tickets - 1 WHERE id = :id", ['id'=>$id]);
     }
 
     public function get_events_number($status)

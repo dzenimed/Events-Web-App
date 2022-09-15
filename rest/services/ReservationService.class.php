@@ -29,7 +29,7 @@ class ReservationService extends BaseService
 
     public function add_reservation($reservation)
     {
-      try {      
+      try {
           $this->dao->beginTransaction();
           $reservation = parent::add([
           "status" => "ACTIVE",
